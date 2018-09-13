@@ -35,3 +35,13 @@ class CosTests(TranspileTestCase):
             except TypeError as err:
                 print(err)
         """)
+
+    @expectedFailure
+    def test_cos_noarg(self):
+        self.assertCodeExecution("""
+            from math import cos
+            try:
+                print(cos())
+            except TypeError as err:
+                print(err)
+        """)
