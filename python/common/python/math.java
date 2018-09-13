@@ -2,7 +2,7 @@ package python;
 
 @org.python.Module(
         __doc__ =
-                "This module provides various functions to do math.\n"
+                "This module provides various functions to do math."
 )
 public class math extends org.python.types.Module {
     public math() {
@@ -24,12 +24,10 @@ public class math extends org.python.types.Module {
     //public static org.python.types.Int altzone;
 
     @org.python.Method(
-            __doc__ = ""
+            __doc__ = "",
+            args = {"x"}
     )
     public static org.python.Object cos(org.python.Object x) {
-        //throw new org.python.exceptions.NotImplementedError("math.cos() has not been implemented.");
-        System.out.print("Här är jag!!!");
-
         return new org.python.types.Float((float) Math.cos(((org.python.types.Int) x.__int__()).value));
     }
 }

@@ -521,7 +521,7 @@ public class Super implements org.python.Object {
 
     @org.python.Method(
             __doc__ = "",
-            args = "x"
+            args = {"x"}
     )
     public org.python.Object __cos__(org.python.Object x) {
         throw new org.python.exceptions.TypeError("unsupported operand");

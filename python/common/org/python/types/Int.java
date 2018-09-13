@@ -449,11 +449,12 @@ public class Int extends org.python.types.Object {
             );
         }
     }
+
     @org.python.Method(
             __doc__ = "Return cos(x).",
-            args = {"x"}
+            args = {"arg"}
     )
-
+    
     public org.python.Object __cos__(org.python.Object arg) {
         int val = Math.round(((org.python.types.Int) arg.__int__()).value);
 
