@@ -1424,6 +1424,17 @@ public class Python {
     }
 
     @org.python.Method(
+        __doc__="Return cos(x)",
+        args = ("x")
+    )
+    public static org.python.Object cos(org.python.Object x) {
+        if (!(x instanceof org.python.types.Int)) {
+            throw new org.python.exceptions.TypeError("cos() argument must be integer!");
+        }
+        return x.__cos__(x);
+    }
+
+    @org.python.Method(
             __doc__ = "print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)" +
                     "\n" +
                     "Prints the values to a stream, or to sys.stdout by default.\n" +

@@ -630,6 +630,15 @@ public class Object extends java.lang.RuntimeException implements org.python.Obj
 
     @org.python.Method(
             __doc__ = "",
+            args = "x"
+    )
+    public org.python.Object __cos__(org.python.Object x) {
+        throw new org.python.exceptions.TypeError("unsuported operand type?");
+    }
+    
+
+    @org.python.Method(
+            __doc__ = "",
             args = {"other"}
     )
     public org.python.Object __lshift__(org.python.Object other) {

@@ -136,6 +136,7 @@ public interface Object extends Comparable {
     public org.python.Object __mod__(org.python.Object other);
     public org.python.Object __divmod__(org.python.Object other);
     public org.python.Object __pow__(org.python.Object other, org.python.Object modulus);
+    public org.python.Object __cos__(org.python.Object x);
     public org.python.Object __lshift__(org.python.Object other);
     public org.python.Object __rshift__(org.python.Object other);
     public org.python.Object __and__(org.python.Object other);

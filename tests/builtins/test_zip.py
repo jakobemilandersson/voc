@@ -30,6 +30,15 @@ class ZipTests(TranspileTestCase):
                 print(err)
             """)
 
+    def test_zip_str(self):
+        self.assertCodeExecution("""
+            name = [ "Manjeet", "Nikhil", "Shambhavi", "Astha" ] 
+            roll_no = [ 4, 1, 3, 2 ] 
+            marks = [ 40, 50, 60, 70 ] 
+            print(set(zip(name, roll_no, marks)))
+
+            """)
+
 
 class BuiltinZipFunctionTests(BuiltinFunctionTestCase, TranspileTestCase):
     functions = ["zip"]

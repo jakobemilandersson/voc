@@ -521,6 +521,14 @@ public class Super implements org.python.Object {
 
     @org.python.Method(
             __doc__ = "",
+            args = "x"
+    )
+    public org.python.Object __cos__(org.python.Object x) {
+        throw new org.python.exceptions.TypeError("unsupported operand");
+    }
+
+    @org.python.Method(
+            __doc__ = "",
             args = {"other"}
     )
     public org.python.Object __lshift__(org.python.Object other) {

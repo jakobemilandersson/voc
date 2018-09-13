@@ -450,10 +450,23 @@ public class Int extends org.python.types.Object {
         }
     }
     @org.python.Method(
-            __doc__ = "Return pow(self, other, mod).",
-            args = {"other"},
-            default_args = {"modulo"}
+            __doc__ = "Return cos(x).",
+            args = {"x"}
     )
+
+    public org.python.Object __cos__(org.python.Object arg) {
+        if (arg != null) {
+            if (!(arg instanceof org.python.types.Int)) {
+                throw new org.python.exceptions.TypeError("cos() argument must be integer ffs!");
+            } else {
+                long value = ((org.python.types.Int) arg).value;
+                
+                return (getInt((long) Math.cos(value)));
+            }
+        }  else {
+            throw new org.python.exceptions.TypeError("cos() argument cannot be null!");
+        }
+    }
     public org.python.Object __pow__(org.python.Object other, org.python.Object modulo) {
         if (modulo != null) {
             /* if exponent is not int and modulo specified raise TypeError*/
