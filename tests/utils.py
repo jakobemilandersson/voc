@@ -9,7 +9,6 @@ import sys
 import tempfile
 import time
 import traceback
-from math import cos
 from unittest import TestCase
 from itertools import permutations
 
