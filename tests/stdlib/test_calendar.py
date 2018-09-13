@@ -1,15 +1,12 @@
-import calendar
+from .. utils import TranspileTestCase
 
 from unittest import expectedFailure
 
-from ..utils import TranspileTestCase
-
-
 class CalendarModuleTests(TranspileTestCase):
 
-	@expectedFailure
+	#@expectedFailure
 	def test_leapdays(self):
 	        self.assertCodeExecution("""
-	        	num = calendar.leapdays(2015,2018)
-	        	print(num)
+	        	import calendar
+	        	print(calendar.leapdays(2015,2018))
 	        	""")
