@@ -455,17 +455,21 @@ public class Int extends org.python.types.Object {
     )
 
     public org.python.Object __cos__(org.python.Object arg) {
+        int val = Math.round(((org.python.types.Int) arg.__int__()).value);
+
+        int cos = (int) Math.cos(Math.toRadians(val));
+        return getInt(cos);
+        /*
         if (arg != null) {
             if (!(arg instanceof org.python.types.Int)) {
                 throw new org.python.exceptions.TypeError("cos() argument must be integer ffs!");
-            } else {
-                long value = ((org.python.types.Int) arg).value;
-                
-                return (getInt((long) Math.cos(value)));
+            } else {                
+                return getInt(Math.cos(arg));
             }
         }  else {
             throw new org.python.exceptions.TypeError("cos() argument cannot be null!");
         }
+        */
     }
     public org.python.Object __pow__(org.python.Object other, org.python.Object modulo) {
         if (modulo != null) {

@@ -422,10 +422,6 @@ class TranspileTestCase(TestCase):
                 context = 'Global context: %s' % message
             else:
                 context = 'Global context'
-            print("ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASD")
-            print("Java out:" + java_out)
-            print("Python out: " + py_out)
-            print("ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASD")
             self.assertEqual(java_out, py_out, context)
 
             # Confirm that both output strings end with the canary statement
