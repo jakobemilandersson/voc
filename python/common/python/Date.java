@@ -8,11 +8,10 @@ import java.util.List;
 public class Date extends org.python.types.Module {
 
     @org.python.Method(
-            __doc__ = "",
-            args = {"pattern"}
+            __doc__ = ""
     )
-    public static Date today(org.python.Object pattern) {
-		return new Date();
+    public static org.python.Object today() {
+		return new org.python.types.Str("tja");
     }
 
 }
