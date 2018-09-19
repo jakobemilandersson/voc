@@ -4,7 +4,6 @@ from ..utils import TranspileTestCase
 
 
 class ReModuleTests(TranspileTestCase):
-    # @unittest.expectedFailure
     def test_escape(self):
         self.assertCodeExecution("""
         import re
