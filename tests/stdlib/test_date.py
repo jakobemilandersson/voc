@@ -1,11 +1,16 @@
-from datetime import datetime
-from datetime import date
+
 
 from .. utils import TranspileTestCase
 
-class DateTests(TranspileTestCase):
+class DateModuleTests(TranspileTestCase):
 	def test_today(self):
 		self.assertCodeExecution("""
-			from datetime import date
-			print("ghdf")
-			""")
+		from datetime import date
+		print (date.today())
+		""")
+
+	def test_creation(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		print (date(1, None, 3))
+		""")
