@@ -12,5 +12,11 @@ class DateModuleTests(TranspileTestCase):
 	def test_creation(self):
 		self.assertCodeExecution("""
 		from datetime import date
-		print (date(1, None, 3))
+		print (date(1, 2, 3))
+		""")
+
+	def test_kwargs(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		print (date(year=4, day=3, month=10))
 		""")
