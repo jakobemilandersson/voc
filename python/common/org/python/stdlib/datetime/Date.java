@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat;
 import org.python.types.Int;
 import org.python.types.Str;
 import org.python.types.Bool;
+import org.python.types.List;
 import org.python.types.NoneType;
 import org.python.types.Object;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 public class Date extends org.python.types.Object {
 
@@ -98,19 +100,6 @@ public class Date extends org.python.types.Object {
         return this;
     }
 
-    @org.python.Method(__doc__ = "Return repr(self).")
-    public org.python.types.Str isoformat() {
-        String year = this.year.toString();
-        String month = this.month.toString();
-        String day = this.day.toString();
-        year = filler(year, 4);
-        month = filler(month, 2);
-        day = filler(day, 2);
-
-        // return this.year;
-        return new org.python.types.Str(year + "-" + month + "-" + day);
-    }
-
     private static String filler(String input, int target) {
         int len = input.toString().length();
         String output = input;
@@ -119,11 +108,6 @@ public class Date extends org.python.types.Object {
         }
         return output;
     }
-
-    // @org.python.Method(__doc__ = "Return min")
-    // public static Date min() {
-    //     return new Date(Int.getInt(1), Int.getInt(1), Int.getInt(1));
-    // }
 
     @org.python.Method(__doc__ = "Return today")
     public static org.python.types.Object today() {
@@ -142,8 +126,37 @@ public class Date extends org.python.types.Object {
         return newDate;
     }
 
+    @org.python.Method(__doc__ = "Return getTrimmedDateStr(self).")
+    private ArrayList getTrimmedDateStrings() {
+        ArrayList retList = new ArrayList<String>();
+        String year = this.year.toString();
+        String month = this.month.toString();
+        String day = this.day.toString();
+        year = filler(year, 4);
+        month = filler(month, 2);
+        day = filler(day, 2);
+
+        retList.add(day);
+        retList.add(month);
+        retList.add(year);
+
+        return retList;
+    }
+
+    @org.python.Method(__doc__ = "Return repr(self).")
+    public org.python.types.Str isoformat() {
+        ArrayList dateStrings = getTrimmedDateStrings();
+        return new org.python.types.Str(dateStrings.get(2) + "-" + dateStrings.get(1) + "-" + dateStrings.get(0));
+    }
+
     @org.python.Method(__doc__ = "Return repr(self).")
     public org.python.types.Str __repr__() {
+        ArrayList dateStrings = getTrimmedDateStrings();
+        return new org.python.types.Str("datetime.date(" + dateStrings.get(2) + ", " + dateStrings.get(1) + ", " + dateStrings.get(0) + ")");
+    }
+
+    @org.python.Method(__doc__ = "Return str(self).")
+    public org.python.types.Str __str__() {
         return isoformat();
     }
 }

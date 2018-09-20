@@ -115,3 +115,17 @@ class DateModuleTests(TranspileTestCase):
 		d = date(9491, 12, 31)
 		print(d.ctime())
 		""")
+
+	def test_repr(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(9491, 12, 31)
+		print(d.__repr__())
+		""")
+
+	def test_str(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(9491, 12, 31)
+		print(d.__str__())
+		""")
