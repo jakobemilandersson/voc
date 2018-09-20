@@ -1,5 +1,8 @@
 package org.python.stdlib.datetime;
-
+import java.text.ParseException;
+import java.text.DateFormatSymbols;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
 import org.python.types.Int;
 import org.python.types.Str;
 import org.python.types.Bool;
@@ -59,6 +62,21 @@ public class Date extends org.python.types.Object {
         this.year = year;
         this.month = month;
         this.day = day;
+    }
+
+    @org.python.Method(__doc__ = "Return ctime(self)")
+    public Str ctime() {
+        Str retStr = new Str();
+        try {
+            String month= (new DateFormatSymbols().getMonths()[(int)this.month.value-1]).substring(0,3);
+            String dateString = String.format("%d-%d-%d", (int)this.year.value, (int)this.month.value, (int)this.day.value);
+            java.util.Date date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
+            String dayOfWeek = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date)).substring(0,3);
+            retStr =  new Str(dayOfWeek + " " + month + " " +this.day.toJava()+ " " + "00:00:00" + " " + this.year.toJava());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retStr;
     }
 
     @org.python.Method(__doc__ = "Return repr(self).", default_args = { "year", "month", "day" })

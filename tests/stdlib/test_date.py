@@ -94,3 +94,24 @@ class DateModuleTests(TranspileTestCase):
 		d = date(1300, 1, 4)
 		print(d.max)
 		""")
+
+	def test_ctime(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(2018, 9, 21)
+		print(d.ctime())
+		""")
+
+	def test_ctime_2(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(9191, 1, 31)
+		print(d.ctime())
+		""")
+
+	def test_ctime_3(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(9491, 12, 31)
+		print(d.ctime())
+		""")
