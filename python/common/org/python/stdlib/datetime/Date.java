@@ -3,6 +3,7 @@ package org.python.stdlib.datetime;
 import org.python.types.Int;
 import org.python.types.Str;
 import org.python.types.Bool;
+import org.python.types.NoneType;
 import java.util.Calendar;
 
 public class Date extends org.python.types.Object {
@@ -13,21 +14,29 @@ public class Date extends org.python.types.Object {
     @org.python.Method(__doc__ = "Time TODO", default_args = { "year", "month", "day" })
     public Date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         super();
-		
-		if(args[0] == null || args[1] == null || args[2] == null) throw new org.python.exceptions.TypeError("EEXEXEXEXCC");
+
+        if (args[0].toJava() == null || args[1].toJava() == null || args[2].toJava() == null)
+            throw new org.python.exceptions.TypeError("an integer is required (got type NoneType)");
 
         this.year = Int.getInt(1);
         this.month = Int.getInt(1);
         this.day = Int.getInt(1);
 
-        if(args[0] != null) this.year = (Int) args[0];
-        if(args[1] != null) this.month = (Int) args[1];
-        if(args[2] != null) this.day = (Int) args[2];
+        if (args[0] != null)
+            this.year = (Int) args[0];
+        if (args[1] != null)
+            this.month = (Int) args[1];
+        if (args[2] != null)
+            this.day = (Int) args[2];
 
-        if(this.year.value < 0 || this.year.value > 9999) throw new org.python.exceptions.ValueError("year " + this.year +" is out of range");
-        
+        if (this.year.value < 1 || this.year.value > 9999)
+            throw new org.python.exceptions.ValueError("year " + this.year + " is out of range");
+        if (this.month.value < 1 || this.month.value > 12)
+            throw new org.python.exceptions.ValueError("month must be in 1..12");
+        if (this.day.value < 1 || this.day.value > 31)
+            throw new org.python.exceptions.ValueError("day is out of range for month");
+
     }
-
 
     private Date(Int year, Int month, Int day) {
         this.year = year;
