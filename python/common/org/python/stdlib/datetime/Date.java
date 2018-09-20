@@ -14,6 +14,8 @@ public class Date extends org.python.types.Object {
     )
     public Date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         super();
+		
+		if(args[0] == null || args[1] == null || args[2] == null) throw new org.python.exceptions.TypeError("EEXEXEXEXCC");
 
         this.year = Int.getInt(1);
         this.month = Int.getInt(1);
@@ -23,14 +25,20 @@ public class Date extends org.python.types.Object {
         if(args[1] != null) this.month = (Int) args[1];
         if(args[2] != null) this.day = (Int) args[2];
 
-		//if(args[0] == null || args[1] == null || args[2] == null) throw new org.python.exceptions.RuntimeError("EEXEXEXEXCC");
 
-		//boolean yearCondition = (year < 0) || (year > 9999);
-		//boolean monthCondition = (month < 0) || (month > 12);
+		org.python.Object year_1 = this.year.__lt__(Int.getInt(0));
+		org.python.Object year_2 = this.year.__gt__(Int.getInt(9999));
+		org.python.Object year_condition = year_1.__or__(year_2);
 
-		// if (this.year < Int.getInt(0) || this.year > Int.getInt(9999) || this.month < Int.getInt(0) || this.month > Int.getInt(12) ) {
-		// 	throw new org.python.exceptions.ValueError("too many values to unpack (expected 2)");
-		// }
+		if(year_condition.value) {
+			throw new org.python.exceptions.ValueError("gfgfgfgfgfgf");
+		}
+		// boolean monthCondition = (this.month < 0) || (this.month > 12);
+		// boolean dayCondition = (this.month < 0) || (this.month > 12);
+
+
+
+
 
 /*
         org.python.Object yearKwargs = kwargs.get("year");

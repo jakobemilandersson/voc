@@ -9,8 +9,31 @@ class DateModuleTests(TranspileTestCase):
 		print (date.today())
 		""")
 
-	def test_creation(self):
+	def test_creation_invalid_year(self):
 		self.assertCodeExecution("""
 		from datetime import date
-		print (date(1, None, 3))
+		try:
+			print (date(2, 6, 3))
+		except ValueError as err:
+			print(err)
 		""")
+
+	def test_creation_invalid_month(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		try:
+			print (date(1, 0, 3))
+		except ValueError as err:
+			print(err)
+		""")
+
+	def test_creation_null_input(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		try:
+			print (date(1, None, 3))
+		except TypeError as err:
+			print(err)
+		""")
+
+	
