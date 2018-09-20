@@ -35,6 +35,15 @@ class DateModuleTests(TranspileTestCase):
 		except ValueError as err:
 			print(err)
 		""")
+	
+	def test_creation_invalid_day(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		try:
+			print (date(1, 5, 0))
+		except ValueError as err:
+			print(err)
+		""")
 
 	def test_creation_null_input(self):
 		self.assertCodeExecution("""
