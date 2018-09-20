@@ -4,12 +4,25 @@ import org.python.types.Int;
 import org.python.types.Str;
 import org.python.types.Bool;
 import org.python.types.NoneType;
+import org.python.types.Object;
 import java.util.Calendar;
 
 public class Date extends org.python.types.Object {
-    private org.python.types.Int year;
-    private org.python.types.Int month;
-    private org.python.types.Int day;
+
+    @org.python.Attribute
+    public Int year;
+
+    @org.python.Attribute
+    public Int month;
+
+    @org.python.Attribute
+    public Int day;
+
+    @org.python.Attribute
+    public static final Date min = new Date(Int.getInt(1), Int.getInt(1), Int.getInt(1));
+
+    @org.python.Attribute
+    public static final Date max = new Date(Int.getInt(9999), Int.getInt(12), Int.getInt(31));
 
     @org.python.Method(__doc__ = "Time TODO", default_args = { "year", "month", "day" })
     public Date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
@@ -36,9 +49,13 @@ public class Date extends org.python.types.Object {
         if (this.day.value < 1 || this.day.value > 31)
             throw new org.python.exceptions.ValueError("day is out of range for month");
 
+        //TODO hantera dagar i udda/jämna månader, skottår
+
     }
 
-    private Date(Int year, Int month, Int day) {
+    @org.python.Method(__doc__ = "Return Date", default_args = { "year", "month", "day" })
+    public Date(Int year, Int month, Int day) {
+        super();
         this.year = year;
         this.month = month;
         this.day = day;
@@ -84,6 +101,11 @@ public class Date extends org.python.types.Object {
         }
         return output;
     }
+
+    // @org.python.Method(__doc__ = "Return min")
+    // public static Date min() {
+    //     return new Date(Int.getInt(1), Int.getInt(1), Int.getInt(1));
+    // }
 
     @org.python.Method(__doc__ = "Return today")
     public static org.python.types.Object today() {

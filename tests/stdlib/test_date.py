@@ -59,3 +59,38 @@ class DateModuleTests(TranspileTestCase):
 		from datetime import date
 		print (date(year=4, day=3, month=10))
 		""")
+
+	def test_year_attr(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(1337, 1, 1)
+		print(d.year)
+		""")
+
+	def test_month_attr(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(1338, 12, 1)
+		print(d.month)
+		""")
+
+	def test_day_attr(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(1339, 1, 4)
+		print(d.day)
+		""")
+	
+	def test_min_attr(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(1300, 1, 4)
+		print(d.min)
+		""")
+
+	def test_max_attr(self):
+		self.assertCodeExecution("""
+		from datetime import date
+		d = date(1300, 1, 4)
+		print(d.max)
+		""")
