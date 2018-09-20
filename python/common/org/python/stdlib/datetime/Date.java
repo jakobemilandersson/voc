@@ -13,7 +13,7 @@ public class Date extends org.python.types.Object {
     @org.python.Method(__doc__ = "Time TODO", default_args = { "year", "month", "day" })
     public Date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         super();
-		
+
 		if(args[0] == null || args[1] == null || args[2] == null) throw new org.python.exceptions.TypeError("EEXEXEXEXCC");
 
         this.year = Int.getInt(1);
