@@ -29,7 +29,12 @@ public class Date extends org.python.types.Object {
     @org.python.Attribute
     public static final Date max = new Date(Int.getInt(9999), Int.getInt(12), Int.getInt(31));
 
-    @org.python.Method(__doc__ = "Time TODO", default_args = { "year", "month", "day" })
+    @org.python.Method(
+        __doc__ = "Date(args, kwargs) -> date" +
+        "\n" +
+        "Returns a Date object.\n",
+        default_args = { "year", "month", "day" }
+    )
     public Date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         super();
 
@@ -58,7 +63,10 @@ public class Date extends org.python.types.Object {
 
     }
 
-    @org.python.Method(__doc__ = "Return Date", default_args = { "year", "month", "day" })
+    @org.python.Method(
+        __doc__ = "Date(year, month, day) -> date",
+        default_args = { "year", "month", "day" }
+    )
     public Date(Int year, Int month, Int day) {
         super();
         this.year = year;
@@ -66,7 +74,7 @@ public class Date extends org.python.types.Object {
         this.day = day;
     }
 
-    @org.python.Method(__doc__ = "Return ctime(self)")
+    @org.python.Method(__doc__ = "ctime() -> time string")
     public Str ctime() {
         Str retStr = new Str();
         try {
@@ -81,7 +89,7 @@ public class Date extends org.python.types.Object {
         return retStr;
     }
 
-    @org.python.Method(__doc__ = "Return repr(self).", default_args = { "year", "month", "day" })
+    @org.python.Method(__doc__ = "replace() -> object")
     public org.python.types.Object replace(org.python.Object[] args,
             java.util.Map<java.lang.String, org.python.Object> kwargs) {
 
@@ -109,7 +117,7 @@ public class Date extends org.python.types.Object {
         return output;
     }
 
-    @org.python.Method(__doc__ = "Return today")
+    @org.python.Method(__doc__ = "today() -> date")
     public static org.python.types.Object today() {
 
         Calendar cal = Calendar.getInstance();
@@ -126,7 +134,7 @@ public class Date extends org.python.types.Object {
         return newDate;
     }
 
-    @org.python.Method(__doc__ = "Return getTrimmedDateStr(self).")
+    @org.python.Method(__doc__ = "getTrimmedDateStrings() -> date string")
     private ArrayList getTrimmedDateStrings() {
         ArrayList retList = new ArrayList<String>();
         String year = this.year.toString();
@@ -143,19 +151,19 @@ public class Date extends org.python.types.Object {
         return retList;
     }
 
-    @org.python.Method(__doc__ = "Return repr(self).")
+    @org.python.Method(__doc__ = "isoformat() -> date string")
     public org.python.types.Str isoformat() {
         ArrayList dateStrings = getTrimmedDateStrings();
         return new org.python.types.Str(dateStrings.get(2) + "-" + dateStrings.get(1) + "-" + dateStrings.get(0));
     }
 
-    @org.python.Method(__doc__ = "Return repr(self).")
+    @org.python.Method(__doc__ = "__repr__ -> date string")
     public org.python.types.Str __repr__() {
         ArrayList dateStrings = getTrimmedDateStrings();
         return new org.python.types.Str("datetime.date(" + dateStrings.get(2) + ", " + dateStrings.get(1) + ", " + dateStrings.get(0) + ")");
     }
 
-    @org.python.Method(__doc__ = "Return str(self).")
+    @org.python.Method(__doc__ = "__str__ -> date string")
     public org.python.types.Str __str__() {
         return isoformat();
     }
