@@ -4,6 +4,7 @@ import org.python.types.Int;
 import org.python.types.Str;
 import org.python.types.Float;
 import org.python.types.Tuple;
+import org.python.types.Bool;
 
 public class Timedelta extends org.python.types.Object {
     private Int days;
@@ -47,6 +48,9 @@ public class Timedelta extends org.python.types.Object {
         if (daysKwargs instanceof org.python.types.Int) {
             days = (Int) daysKwargs;
         }
+        else if (daysKwargs instanceof Bool){
+                days = ((Int) daysKwargs.__int__());
+        }
         else if(args.length > 0) {
             if(args[0] instanceof Int)
               days = (Int) args[0];
@@ -61,6 +65,9 @@ public class Timedelta extends org.python.types.Object {
         org.python.Object secondsKwargs = kwargs.get("seconds");
         if (secondsKwargs instanceof org.python.types.Int) {
             seconds = (Int) secondsKwargs;
+        }
+        else if (secondsKwargs instanceof Bool){
+                days = ((Int) secondsKwargs.__int__());
         }
         else if(args.length > 1) {
             if(args[1] instanceof Int)
@@ -77,6 +84,9 @@ public class Timedelta extends org.python.types.Object {
         if (microsecondsKwargs instanceof org.python.types.Int) {
             microseconds = (Int) microsecondsKwargs;
         }
+        else if (microsecondsKwargs instanceof Bool){
+                days = ((Int) microsecondsKwargs.__int__());
+        }
         else if(args.length > 2) {
             if(args[2] instanceof Int)
               microseconds = (Int) args[2];
@@ -87,6 +97,9 @@ public class Timedelta extends org.python.types.Object {
         org.python.Object millisecondsKwargs = kwargs.get("milliseconds");
         if (millisecondsKwargs instanceof org.python.types.Int) {
             milliseconds = (Int) millisecondsKwargs;
+        }
+        else if (millisecondsKwargs instanceof Bool){
+                days = ((Int) millisecondsKwargs.__int__());
         }
         else if(args.length > 3) {
             if(args[3] instanceof Int)
@@ -103,6 +116,9 @@ public class Timedelta extends org.python.types.Object {
         if (minutesKwargs instanceof org.python.types.Int) {
             minutes = (Int) minutesKwargs;
         }
+        else if (minutesKwargs instanceof Bool){
+                days = ((Int) minutesKwargs.__int__());
+        }
         else if(args.length > 4) {
             if(args[4] instanceof Int)
               minutes = (Int) args[4];
@@ -118,6 +134,9 @@ public class Timedelta extends org.python.types.Object {
         if (hoursKwargs instanceof org.python.types.Int) {
             hours = (Int) hoursKwargs;
         }
+        else if (hoursKwargs instanceof Bool){
+                days = ((Int) hoursKwargs.__int__());
+        }
         else if(args.length > 5) {
             if(args[5] instanceof Int)
               hours = (Int) args[5];
@@ -132,6 +151,9 @@ public class Timedelta extends org.python.types.Object {
         org.python.Object weeksKwargs = kwargs.get("weeks");
         if (weeksKwargs instanceof org.python.types.Int) {
             weeks = (Int) weeksKwargs;
+        }
+        else if (weeksKwargs instanceof Bool){
+                days = ((Int) weeksKwargs.__int__());
         }
         else if(args.length > 6) {
             if(args[6] instanceof Int)
