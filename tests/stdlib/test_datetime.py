@@ -114,12 +114,26 @@ class TimeModuleTests(TranspileTestCase):
             print (i * t1)
         """)
 
-    def test_timedelta_add2(self):
+    def test_timedelta_add1(self):
         self.assertCodeExecution("""
             from datetime import timedelta
             t1 = timedelta(days=1, hours=10, minutes=15, seconds=1)
             t2 = timedelta(days=1, hours=-5, minutes=1, microseconds=20)
             print (t1 + t2)
+        """)
+
+    def test_timedelta_bool1(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            t1 = timedelta(True)
+            print (t1)
+        """)
+
+    def test_timedelta_bool2(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            t1 = timedelta(False)
+            print (t1)
         """)
 
     def test_timedelta_tot_sec1(self):

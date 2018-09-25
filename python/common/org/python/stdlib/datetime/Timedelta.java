@@ -4,6 +4,7 @@ import org.python.types.Int;
 import org.python.types.Str;
 import org.python.types.Float;
 import org.python.types.Tuple;
+import org.python.types.Bool;
 
 public class Timedelta extends org.python.types.Object {
     private Int days;
@@ -47,9 +48,18 @@ public class Timedelta extends org.python.types.Object {
         if (daysKwargs instanceof org.python.types.Int) {
             days = (Int) daysKwargs;
         }
+        else if (daysKwargs instanceof Float) {
+            fdays = (Float) daysKwargs;
+            days = (Int) daysKwargs.__int__();
+            fdays.value -= ((Float) days.__float__()).value;
+            fdays.value = Math.round(fdays.value * 1000.0);
+            seconds = Int.getInt(Math.round((long) (fdays.value * (24*60*60)/1000)));
+        }
         else if(args.length > 0) {
             if(args[0] instanceof Int)
               days = (Int) args[0];
+            else if(args[0] instanceof Bool)
+              days = ((Int) args[0].__int__());
             else if(args[0] instanceof Float) {
               fdays = (Float) args[0];
               days = (Int) args[0].__int__();
@@ -61,6 +71,13 @@ public class Timedelta extends org.python.types.Object {
         org.python.Object secondsKwargs = kwargs.get("seconds");
         if (secondsKwargs instanceof org.python.types.Int) {
             seconds = (Int) secondsKwargs;
+        }
+        else if (secondsKwargs instanceof Float) {
+          fseconds = (Float) secondsKwargs;
+          seconds = (Int) secondsKwargs.__int__();
+          fseconds.value -= ((Float) seconds.__float__()).value;
+          fseconds.value = Math.round(fseconds.value * 1000.0);
+          microseconds = Int.getInt(Math.round((long) (fseconds.value * (1000000)/1000)));
         }
         else if(args.length > 1) {
             if(args[1] instanceof Int)
@@ -77,6 +94,9 @@ public class Timedelta extends org.python.types.Object {
         if (microsecondsKwargs instanceof org.python.types.Int) {
             microseconds = (Int) microsecondsKwargs;
         }
+        else if (microsecondsKwargs instanceof Float) {
+            microseconds =  Int.getInt(((Int) microsecondsKwargs.__int__()).value);
+        }
         else if(args.length > 2) {
             if(args[2] instanceof Int)
               microseconds = (Int) args[2];
@@ -87,6 +107,13 @@ public class Timedelta extends org.python.types.Object {
         org.python.Object millisecondsKwargs = kwargs.get("milliseconds");
         if (millisecondsKwargs instanceof org.python.types.Int) {
             milliseconds = (Int) millisecondsKwargs;
+        }
+        else if (millisecondsKwargs instanceof Float) {
+          fmilliseconds = (Float) millisecondsKwargs;
+          milliseconds = (Int) millisecondsKwargs.__int__();
+          fmilliseconds.value -= ((Float) milliseconds.__float__()).value;
+          fmilliseconds.value = Math.round(fmilliseconds.value * 1000.0);
+          microseconds = Int.getInt(Math.round((long) (fmilliseconds.value * (1000)/1000)));
         }
         else if(args.length > 3) {
             if(args[3] instanceof Int)
@@ -103,6 +130,13 @@ public class Timedelta extends org.python.types.Object {
         if (minutesKwargs instanceof org.python.types.Int) {
             minutes = (Int) minutesKwargs;
         }
+        else if (minutesKwargs instanceof Float) {
+          fminutes = (Float) minutesKwargs;
+          minutes = (Int) minutesKwargs.__int__();
+          fminutes.value -= ((Float) minutes.__float__()).value;
+          fminutes.value = Math.round(fminutes.value * 1000.0);
+          seconds = Int.getInt(Math.round((long) (fminutes.value * (60)/1000)));
+        }
         else if(args.length > 4) {
             if(args[4] instanceof Int)
               minutes = (Int) args[4];
@@ -118,6 +152,13 @@ public class Timedelta extends org.python.types.Object {
         if (hoursKwargs instanceof org.python.types.Int) {
             hours = (Int) hoursKwargs;
         }
+        else if (hoursKwargs instanceof Float) {
+          fhours = (Float) hoursKwargs;
+          hours = (Int) hoursKwargs.__int__();
+          fhours.value -= ((Float) hours.__float__()).value;
+          fhours.value = Math.round(fhours.value * 1000.0);
+          seconds = Int.getInt(Math.round((long) (fhours.value * (60*60)/1000)));
+        }
         else if(args.length > 5) {
             if(args[5] instanceof Int)
               hours = (Int) args[5];
@@ -132,6 +173,13 @@ public class Timedelta extends org.python.types.Object {
         org.python.Object weeksKwargs = kwargs.get("weeks");
         if (weeksKwargs instanceof org.python.types.Int) {
             weeks = (Int) weeksKwargs;
+        }
+        else if (weeksKwargs instanceof Float) {
+          fweeks = (Float) weeksKwargs;
+          weeks = (Int) weeksKwargs.__int__();
+          fweeks.value -= ((Float) weeks.__float__()).value;
+          fweeks.value = Math.round(fweeks.value * 1000.0);
+          seconds = Int.getInt(Math.round((long) (fweeks.value * (7*24*60*60)/1000)));
         }
         else if(args.length > 6) {
             if(args[6] instanceof Int)
