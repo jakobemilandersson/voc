@@ -52,27 +52,65 @@ public class DateTime extends org.python.types.Object {
     @org.python.Method(__doc__ = "DateTime constructor", default_args = { "year", "month", "day" })
     public DateTime(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         super();
+		String[] errors = {"function missing required argument 'year' (pos 1)",
+		"function missing required argument 'month' (pos 2)",
+		"function missing required argument 'day' (pos 3)"};
 		
+		//Default values
 		this.hour = Int.getInt(0);
 		this.minute = Int.getInt(0);
 		this.second = Int.getInt(0);
+		this.microsecond = Int.getInt(0);
 		
 		int nArgs = args.length;
+		int currVal = 0;
 		
-		switch(nArgs){
-			case 0: throw new org.python.exceptions.TypeError("Required argument 'year' (pos 1) not found");
+		for(int i = 0; i < nArgs; i++){
+			if(args[i] instanceof org.python.types.Str){
+				throw new org.python.exceptions.TypeError(
+				"an integer is required (got type str)");
+			}
+			
+			
+			switch(i){
+				case 0:
+					if(args[i]==null) throw new org.python.exceptions.TypeError(errors[i]);
+					
+					currVal = (int)(((Int)args[i]).value);
+					if(currVal>=1 && currVal<=9999) this.year = (org.python.types.Int)args[i];
+					else throw new org.python.exceptions.ValueError("year is out of range");
+					
+					break;
+				case 1:
+					if(args[i]==null) throw new org.python.exceptions.TypeError(errors[i]);
+					
+					currVal = (int)(((Int)args[i]).value);
+					if(currVal>=1 && currVal<=12) this.month = (org.python.types.Int)args[i];
+					else throw new org.python.exceptions.ValueError("month must be in 1..12");
+					
+					break;
+				case 2:
+					if(args[i]==null) throw new org.python.exceptions.TypeError(errors[i]);
+					
+					currVal = (int)(((Int)args[i]).value);
+					if(dayIsValid((int)this.year.value, (int)this.month.value, currVal)) this.day = (org.python.types.Int)args[i];
+					else throw new org.python.exceptions.ValueError("day is out of range for month");
+					
+					break;
+				case 3:
+					this.hour = (org.python.types.Int)args[i];
+					break;
+				case 4:
+					this.minute = (org.python.types.Int)args[i];
+					break;
+				case 5:
+					this.second = (org.python.types.Int)args[i];
+					break;
+				case 6:
+					this.microsecond = (org.python.types.Int)args[i];
+					break;
+			}
 		}
-		
-        if(args[0] != null) this.year = ((org.python.types.Int)args[0]);
-        if(args[1] != null) this.month = ((org.python.types.Int)args[1]);
-        if(args[2] != null) this.day = ((org.python.types.Int)args[2]);
-		//if(args[3] != null) this.hour = (Int) args[3];
-		//if(args[4] != null) this.minute = (Int) args[4];
-		//if(args[5] != null) this.second = (Int) args[5];
-		//if(args[6] != null) this.microsecond = (Int) args[6];
-		//if(args[7] instanceof org.python.types.Str) this.tzinfo = (org.python.types.Str) args[7];
-		//if(args[8] != null) this.fold = (Int) args[8];
-
      
     }
 	
@@ -86,7 +124,22 @@ public class DateTime extends org.python.types.Object {
 		String out = nfFour.format(this.year.value)	+"-"+ nfTwo.format(this.month.value)+"-"+
 		nfTwo.format(this.day.value)+" "+nfTwo.format(this.hour.value)+":"+
 		nfTwo.format(this.minute.value)+":"+nfTwo.format(this.second.value);
+		
 		return new org.python.types.Str(out);
+	}
+	
+	//https://github.com/python/cpython/blob/master/Lib/datetime.py#L46
+	private boolean dayIsValid(int year, int month, int day){
+		//Leap check
+		boolean isLeap = (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0);
+		if(isLeap && month==2){
+			if(day>=1 && day <= 29) return true;
+		}
+		
+		int[] dim = {-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		if(day>=1 && day <= dim[month]) return true;
+		
+		return false;
 	}
 
    
