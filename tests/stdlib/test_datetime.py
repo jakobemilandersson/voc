@@ -75,14 +75,14 @@ class TimeModuleTests(TranspileTestCase):
             t1 = timedelta(0, 0, 0, 0, 1.2)
             print (t1)
         """)
-    
+
     def test_timedelta_con_float7(self):
         self.assertCodeExecution("""
             from datetime import timedelta
             t1 = timedelta(0, 0, 0, 0, 0, 1.2)
             print (t1)
         """)
-    
+
     def test_timedelta_con_float8(self):
         self.assertCodeExecution("""
             from datetime import timedelta
@@ -97,13 +97,29 @@ class TimeModuleTests(TranspileTestCase):
             print (t1)
         """)
 
-    
+
     def test_timedelta_mul1(self):
         self.assertCodeExecution("""
             from datetime import timedelta
             t1 = timedelta(days=1, hours=10, minutes=15, seconds=1)
             i = 5
-            print (t1 * 1)
+            print (t1 * i)
+        """)
+
+    def test_timedelta_mul2(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            t1 = timedelta(days=1, hours=10, minutes=15, seconds=1)
+            i = 5
+            print (i * t1)
+        """)
+
+    def test_timedelta_add2(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            t1 = timedelta(days=1, hours=10, minutes=15, seconds=1)
+            t2 = timedelta(days=1, hours=-5, minutes=1, microseconds=20)
+            print (t1 + t2)
         """)
 
     def test_timedelta_tot_sec1(self):
@@ -112,6 +128,7 @@ class TimeModuleTests(TranspileTestCase):
             t1 = timedelta(days=1, hours=10, minutes=15, seconds=1)
             print (t1.total_seconds())
         """)
+<<<<<<< HEAD
 
     def test_timedelta_con_bool1(self):
         self.assertCodeExecution("""
@@ -126,3 +143,5 @@ class TimeModuleTests(TranspileTestCase):
             t1 = timedelta(days=False)
             print (t1)
         """)
+=======
+>>>>>>> 6e8b90a39c0507e8a50fcedadb68e70ca57665a1
