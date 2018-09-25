@@ -17,9 +17,15 @@ class DatetimeModuleTests(TranspileTestCase):
     # TODO: Check collections' tests for more tests like this
 
 class DateTimeTests(TranspileTestCase):
-
-    def test___new__(self):
-        self.assertCodeExecution("""
-            from datetime import datetime
-            dt = datetime(2001,1,1)
-            """)
+	def test__new__(self):
+		self.assertCodeExecution("""
+			from datetime import datetime
+			dt = datetime(2001,1,1)
+			print(dt)
+		""")
+	@expectedFailure
+	def test___new__0arg(self):
+		self.assertCodeExecution("""
+			from datetime import datetime
+			dt = datetime()
+			""")
