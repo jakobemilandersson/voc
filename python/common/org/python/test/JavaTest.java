@@ -1,5 +1,5 @@
 package org.python.test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.python.exceptions.IndexError;
 import org.python.types.List;
 import org.python.types.Int;
@@ -104,10 +104,32 @@ public class JavaTest extends TestCase {
 
     // -------------------------------------------------------
     
-    
+
     
     // --------- Adam, Tor and Jakob ---------------------------
+    @Test
+    public void testListContains() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        x.append(Int.getInt(2));
+        assertTrue((x.__contains__(Int.getInt(1))));
+    }
+
+    public void testListReverse() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        x.append(Int.getInt(2));
+        x.__reversed__();
+        List y = new List();
+        y.append(Int.getInt(2));
+        y.append(Int.getInt(1));
+        assertEquals(x, y);
+    }
+
     // -----------------------------------------------------------
+
+
+
 
     // --------- Lucas and Henrik -------------------------------
     // ----------------------------------------------------------
