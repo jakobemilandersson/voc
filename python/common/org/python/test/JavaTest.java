@@ -312,6 +312,13 @@ public class JavaTest extends TestCase {
 
         assertEquals(original, validation);
     }
+    @Test
+    public void testListCopy() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        List y = (List) x.copy();
+        assertEquals(x, y);
+    }
 
     @Test
     public void testListRemoveBoolean() {

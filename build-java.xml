@@ -8,9 +8,10 @@
     <javac debug="true"
            debuglevel="lines,vars,source"
            includeantruntime="false"
-           destdir="${build}/java">
-      <src path="${src}/common" />
-      <src path="${src}/java" />
+           destdir="${build}/java"
+           srcdir="${src}"
+           includes="common/**, java/**"
+           excludes="common/org/python/test/**">
     </javac>
   </target>
 
