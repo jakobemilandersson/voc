@@ -134,7 +134,7 @@ class DateModuleTests(TranspileTestCase):
 		""")
 
 
-class TimeModuleTests(TranspileTestCase):
+class TimedeltaModuleTests(TranspileTestCase):
 
     def test_timedelta_con1(self):
         self.assertCodeExecution("""
