@@ -4,14 +4,13 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import org.python.exceptions.IndexError;
 import org.python.exceptions.TypeError;
-import org.python.types.List;
-import org.python.types.Int;
-import org.python.types.Object;
-import org.python.types.Bool;
-import org.python.types.Str;
+import org.python.types.*;
+
 import java.util.*;
 import org.junit.Test;
 import junit.framework.TestCase;
+import org.python.types.List;
+import org.python.types.Object;
 
 public class JavaTest extends TestCase {
 
@@ -213,8 +212,123 @@ public class JavaTest extends TestCase {
         assertEquals(x.count(Int.getInt(1)), Int.getInt(2));
     }
 
+    @Test
+    public void testListExtendList() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
 
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(4));
+        validation.append(new Str("hello"));
 
+        List elementsToAdd = new List();
+        elementsToAdd.append(Int.getInt(4));
+        elementsToAdd.append(new Str("hello"));
+
+        original.extend(elementsToAdd);
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListExtendRange() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(0));
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(4));
+
+        Range toAdd = new Range(Int.getInt(5));
+
+        original.extend(toAdd);
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListExtendNonIterable() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(4));
+
+        Int toAdd = Int.getInt(4);
+
+        original.extend(toAdd);
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListRemoveInteger() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.remove(Int.getInt(3));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListRemoveFirstDuplicate() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.append(Int.getInt(2));
+        original.remove(Int.getInt(2));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(2));
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListRemoveBoolean() {
+        List original = new List();
+        original.append(Bool.getBool(true));
+        original.append(Bool.getBool(false));
+        original.append(Bool.getBool(true));
+        original.append(Bool.getBool(false));
+        original.remove(Bool.getBool(true));
+
+        List validation = new List();
+        validation.append(Bool.getBool(false));
+        validation.append(Bool.getBool(true));
+        validation.append(Bool.getBool(false));
+
+        assertEquals(original, validation);
+    }
 
     // -----------------------------------------------------------
 
