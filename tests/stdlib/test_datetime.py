@@ -104,14 +104,14 @@ class DateTimeConstructor(TranspileTestCase):
 			pass
 		""")
 	
-	def test_new_leap_day(self):
+	def test__new__leap_day(self):
 		self.assertCodeExecution("""
 		from datetime import datetime
 		dt = datetime(2016, 2, 29)
 		print(dt)
 		""")
 
-	def test_new_incorrect_leap_day(self):
+	def test__new__incorrect_leap_day(self):
 		self.assertCodeExecution("""
 		from datetime import datetime
 		try:
@@ -120,3 +120,79 @@ class DateTimeConstructor(TranspileTestCase):
 		except ValueError:
 			pass
 		""")
+	
+	
+	def test__new__bool_true(self):
+		self.assertCodeExecution("""
+		from datetime import datetime
+		try:
+			dt = datetime(2017, True, 29)
+			print(dt)
+		except ValueError:
+			pass
+		""")
+	
+	
+	def test__new__bool_false(self):
+		self.assertCodeExecution("""
+		from datetime import datetime
+		try:
+			dt = datetime(2017, 2, False)
+			print(dt)
+		except ValueError:
+			pass
+		""")
+	
+	
+	def test__new__array(self):
+		self.assertCodeExecution("""
+		from datetime import datetime
+		try:
+			dt = datetime(2017, 2, [1337])
+			print(dt)
+		except TypeError:
+			pass
+		""")
+		
+	
+	def test__new__float(self):
+		self.assertCodeExecution("""
+		from datetime import datetime
+		try:
+			dt = datetime(2017, 2, 13.37)
+			print(dt)
+		except TypeError:
+			pass
+		""")
+	
+	def test__new__complex(self):
+		self.assertCodeExecution("""
+		from datetime import datetime
+		try:
+			dt = datetime(2017, 2, 13+37j)
+			print(dt)
+		except TypeError:
+			pass
+		""")
+	
+	def test__new__dict(self):
+		self.assertCodeExecution("""
+		from datetime import datetime
+		try:
+			dt = datetime(2017, 2, {})
+			print(dt)
+		except TypeError:
+			pass
+		""")
+		
+	@expectedFailure
+	def test__new__overflow(self):
+		self.assertCodeExecution("""
+		from datetime import datetime
+		try:
+			dt = datetime(2017, 2, 9999999999)
+			print(dt)
+		except OverflowError:
+			pass
+		""")
+		

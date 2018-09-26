@@ -12,6 +12,7 @@ import org.python.types.List;
 import org.python.types.NoneType;
 import org.python.types.Object;
 import org.python.exceptions.TypeError;
+import org.python.exceptions.OverflowError;
 import java.util.Calendar;
 import java.util.ArrayList;
 
@@ -66,11 +67,21 @@ public class DateTime extends org.python.types.Object {
 		int currVal = 0;
 		
 		for(int i = 0; i < nArgs; i++){
-			if(args[i] instanceof org.python.types.Str){
-				throw new org.python.exceptions.TypeError(
-				"an integer is required (got type str)");
-			}
 			
+			//Handle incompatible datatypes
+			if(args[i] instanceof org.python.types.Str)
+				throw new org.python.exceptions.TypeError("an integer is required (got type str)");
+			if(args[i] instanceof org.python.types.List)
+				throw new org.python.exceptions.TypeError("an integer is required (got type list)");
+			if(args[i] instanceof org.python.types.Float)
+				throw new org.python.exceptions.TypeError("an integer is required (got type float)");
+			if(args[i] instanceof org.python.types.Dict)
+				throw new org.python.exceptions.TypeError("an integer is required (got type dict)");
+			if(args[i] instanceof org.python.types.Complex)
+				throw new org.python.exceptions.TypeError("can't convert complex to int");
+	
+			if(args[i] instanceof org.python.types.Bool)
+				args[i] = (org.python.types.Int)args[i].__int__();
 			
 			switch(i){
 				case 0:
