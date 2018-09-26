@@ -112,19 +112,31 @@ public class JavaTest extends TestCase {
         List x = new List();
         x.append(Int.getInt(1));
         x.append(Int.getInt(2));
-        assertTrue((x.__contains__(Int.getInt(1))));
+        assertEquals(x.__contains__(Int.getInt(1)), Bool.getBool(true));
     }
 
+    @Test
     public void testListReverse() {
         List x = new List();
         x.append(Int.getInt(1));
         x.append(Int.getInt(2));
-        x.__reversed__();
         List y = new List();
         y.append(Int.getInt(2));
         y.append(Int.getInt(1));
-        assertEquals(x, y);
+        assertEquals(x.reverse(), y);
     }
+
+    @Test
+    public void testListCount() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        x.append(Int.getInt(1));
+        x.append(Int.getInt(2));
+        assertEquals(x.count(Int.getInt(1)), Int.getInt(2));
+    }
+
+
+
 
     // -----------------------------------------------------------
 
