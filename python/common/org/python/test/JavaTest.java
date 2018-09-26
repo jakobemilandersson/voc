@@ -213,7 +213,13 @@ public class JavaTest extends TestCase {
         assertEquals(x.count(Int.getInt(1)), Int.getInt(2));
     }
 
-
+    @Test
+    public void testListCopy() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        List y = (List) x.copy();
+        assertEquals(x, y);
+    }
 
 
     // -----------------------------------------------------------

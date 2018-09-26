@@ -18,12 +18,12 @@ public class datetime extends org.python.types.Module {
     //     //time = org.python.types.Type.pythonType(org.python.stdlib.datetime.Time.class);
     // }
 
-    // @org.python.Attribute
-    // public static org.python.Object timedelta;
-    // @org.python.Attribute
-    // public static org.python.Object date;
-    // @org.python.Attribute
-    // public static org.python.Object time;
+    @org.python.Attribute
+    public static org.python.Object timedelta;
+    @org.python.Attribute
+    public static org.python.Object date;
+    @org.python.Attribute
+    public static org.python.Object time;
 
     @org.python.Attribute()
     public static org.python.Object __file__ = new org.python.types.Str("python/common/python/datetime.java");
