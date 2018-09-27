@@ -156,44 +156,6 @@ public class DateTime extends org.python.types.Object {
 		return this.minute;
 	}
 	
-	/*
-	@org.python.Method(
-            __doc__ = "Return repr(self).",
-			args = {"timestamp"}
-    )
-	public static org.python.types.Str fromtimestamp(org.python.Object timestamp){
-		validateArgs_timestamp(timestamp);
-		
-		Calendar c = Calendar.getInstance(); 
-		c.setTimeInMillis( (long)(((org.python.types.Float)timestamp).value*1000));   
-		
-		org.python.types.Int year_= Int.getInt(c.get(Calendar.YEAR));
-		//In Calendar, January=0...
-		org.python.types.Int month_ = Int.getInt(c.get(Calendar.MONTH)+1);
-		org.python.types.Int day_ = Int.getInt(c.get(Calendar.DATE));
-		org.python.types.Int hour_ = Int.getInt(c.get(Calendar.HOUR_OF_DAY));
-		org.python.types.Int minute_ = Int.getInt(c.get(Calendar.MINUTE));
-		org.python.types.Int second_ = Int.getInt(c.get(Calendar.SECOND));
-		org.python.types.Int microsecond_ = Int.getInt(c.get(Calendar.MILLISECOND)*1000);
-		
-		org.python.types.Object[] args_ = {year_, month_, day_, hour_, minute_, second_, microsecond_};
-		
-		Map kwargs_ = new HashMap();
-		
-		kwargs_.put("year", year_);
-		kwargs_.put("month", month_);
-		kwargs_.put("day", day_);
-		kwargs_.put("hour", hour_);
-		kwargs_.put("minute", minute_);
-		kwargs_.put("second", second_);
-		kwargs_.put("microsecond", microsecond_);
-		
-		DateTime dt = new DateTime(args_, kwargs_);
-
-		return dt.__repr__();
-	}*/
-	
-	
 	@org.python.Method(
             __doc__ = "Return repr(self).",
 			args = {"timestamp"}
