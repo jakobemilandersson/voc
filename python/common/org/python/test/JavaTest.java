@@ -270,11 +270,13 @@ public class JavaTest extends TestCase {
         validation.append(Int.getInt(3));
         validation.append(Int.getInt(4));
 
-        Int toAdd = Int.getInt(4);
+        Object toAdd = Int.getInt(4);
 
-        original.extend(toAdd);
-
-        assertEquals(original, validation);
+        try {
+            original.extend(toAdd);
+        } catch (org.python.exceptions.TypeError error) {
+            // error.printStackTrace();
+        }
     }
 
     @Test
