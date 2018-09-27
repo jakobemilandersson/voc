@@ -221,13 +221,128 @@ public class JavaTest extends TestCase {
         assertEquals(x, y);
     }
 
-
     // -----------------------------------------------------------
-
-
-
-
     // --------- Lucas and Henrik -------------------------------
     // ----------------------------------------------------------
 
+    @Test
+    public void testLength() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        for (i = 0; i < 10; i++) {
+            x.append(Int.getInt(1));
+        }
+        assertTrue(x.__len__() == Int.getInt(10));
+    }
+
+    @Test
+    public void testLength() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        for (i = 0; i < 10; i++) {
+            x.append(Int.getInt(1));
+        }
+        assertTrue(x.__len__() == Int.getInt(10));
+    }
+
+    @Test
+    public void testPopNoArg() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        x.pop();
+        assertTrue(x.__len__() == Int.getInt(0));
+    }
+
+    @Test
+    public void testPopIndex() {
+        List x = new List();
+        for (i = 0; i < 5; i++) {
+            x.append(Int.getInt(i));
+        }
+        x.pop(Int.getInt(4));
+        assertTrue(x.count(Int.getInt(4)) == 0);
+    }
+
+    @Test
+    pubic void testPopEmptyList(expected = IndexError.class) {
+        List x = new List();
+        try {
+            x.pop();
+        } catch (IndexError err) {
+            expected = IndexError.class
+        }
+    }
+
+    @Test
+    public void testPopIndexOutOfBounds(expected = IndexError.class) {
+        List x = new List();
+        x.append(Int.getInt(1));
+        try {
+            x.pop(Int.getInt(4));
+        } catch (IndexError err) {
+            expected = IndexError.class
+        }
+    }
+
+    @Test
+    public void testClearEmptyList() {
+        List x = new List();
+        try {
+            x.clear();
+        } catch (TypeError e) {
+        }
+    }
+
+    @Test
+    public void testClearList() {
+        List x = new List();
+        x.append(Int.getInt(1));
+        x.append(Int.getInt(2));
+        x.append(Int.getInt(3));
+        x.clear();
+        assertTrue(len(x) == 0);
+    }
+
+    @Test
+    public void testIndexEmpty(expected = ValueError.class) {
+        List x = new List();
+        try {
+            x.index();
+        } catch (ValueError err) {
+            expected = ValueError.class;
+        }
+    }
+
+    @Test
+    public void testIndexDontExist(expected = ValueError.class) {
+        List x = new List();
+        x.append(Int.getInt(1));
+        try {
+            x.index(Int.getInt(2));
+        } catch (ValueError err) {
+            expected = ValueError.class;
+        }
+    }
+
+    @Test
+    public void testIndexNotInteger(expected = TypeError.class) {
+        List x = new List();
+        x.append(Int.getInt(1));
+        try {
+            x.index(Str.getStr("1"));
+        } catch (TypeError err) {
+            expected = TypeError.class;
+        }
+    }
+
+    @Test
+    public void testIndex() {
+        List x = new List();
+        for(int i = 0; i < 3; i++) {
+            x.append(Int.getInt(i));
+        }
+        assertEqual(x.index(Int.getInt(2)), 2);
+    }
+
+    
 }
