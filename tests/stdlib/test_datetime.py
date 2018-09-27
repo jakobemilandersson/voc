@@ -220,9 +220,11 @@ class DateTimeInstanceMethods(TranspileTestCase):
 		""")
 
 class DateTimeClassMethods(TranspileTestCase):
+	@expectedFailure
 	def test_fromtimestamp(self):
 		self.assertCodeExecution("""
 		from datetime import datetime
+
 		posixtimestamp = 1537967831.17116
 		print(datetime.fromtimestamp(posixtimestamp))
 		""")
@@ -264,11 +266,11 @@ class DateTimeClassMethods(TranspileTestCase):
 		""")
 		
 	@expectedFailure
-	def test__new__overflow(self):
+	def test_fromtimestamp_overflow(self):
 		self.assertCodeExecution("""
 		from datetime import datetime
 		try:
-			datetime.fromtimestamp(9999999999)
+			datetime.fromtimestamp(9999999999999)
 		except OverflowError:
 			pass
 		""")
