@@ -336,7 +336,7 @@ public class JavaTest extends TestCase {
 
         assertEquals(original, validation);
     }
-	
+	/*
 	@Test
     public void testListPopNoArg() {
         List original = new List();
@@ -412,7 +412,7 @@ public class JavaTest extends TestCase {
         original.append(Int.getInt(1));
         original.append(Int.getInt(2));
         original.append(Int.getInt(3));
-        original.insert(0, Int.getInt(4))
+        original.insert(0, Int.getInt(4));
 
         List validation = new List();
         validation.append(Int.getInt(4));
@@ -429,7 +429,7 @@ public class JavaTest extends TestCase {
         original.append(Int.getInt(1));
         original.append(Int.getInt(2));
         original.append(Int.getInt(3));
-        original.insert(0, new Str("hello"))
+        original.insert(0, new Str("hello"));
 
         List validation = new List();
         validation.append(new Str("hello"));
@@ -439,7 +439,7 @@ public class JavaTest extends TestCase {
 
         assertEquals(original, validation);
     }
-
+*/
     // -----------------------------------------------------------
 
 
