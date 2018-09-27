@@ -1,16 +1,13 @@
 package org.python.test;
-import static org.junit.Assert.*;
-
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
+import org.junit.Test;
 import org.python.exceptions.IndexError;
 import org.python.exceptions.TypeError;
 import org.python.types.*;
-
-import java.util.*;
-import org.junit.Test;
-import junit.framework.TestCase;
-import org.python.types.List;
 import org.python.types.Object;
+
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class JavaTest extends TestCase {
 
@@ -200,7 +197,8 @@ public class JavaTest extends TestCase {
         List y = new List();
         y.append(Int.getInt(2));
         y.append(Int.getInt(1));
-        assertEquals(x.reverse(), y);
+        x.reverse();
+        assertEquals(x, y);
     }
 
     @Test
