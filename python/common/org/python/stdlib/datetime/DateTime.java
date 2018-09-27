@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.TimeZone;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.lang.Math;
 
 
 public class DateTime extends org.python.types.Object {
@@ -154,7 +156,7 @@ public class DateTime extends org.python.types.Object {
 		return this.minute;
 	}
 	
-	
+	/*
 	@org.python.Method(
             __doc__ = "Return repr(self).",
 			args = {"timestamp"}
@@ -189,9 +191,9 @@ public class DateTime extends org.python.types.Object {
 		DateTime dt = new DateTime(args_, kwargs_);
 
 		return dt.__repr__();
-	}
+	}*/
 	
-	/*
+	
 	@org.python.Method(
             __doc__ = "Return repr(self).",
 			args = {"timestamp"}
@@ -199,15 +201,32 @@ public class DateTime extends org.python.types.Object {
 	public static org.python.types.Str fromtimestamp(org.python.Object timestamp){
 		validateArgs_timestamp(timestamp);
 		
+		//Algorithm taken from https://github.com/python/cpython/blob/master/Lib/datetime.py
 		//Get integer and decimal parts of timestamp
+		int a = (int)(((org.python.types.Float)timestamp.__float__()).value );
+		double frac = ((org.python.types.Float)timestamp.__float__()).value - a;
 		
-		long nanoTimeStamp = (long)(((org.python.types.Float)timestamp).value*1e9);
 		
-		Instant tmp = Instant.now();
-		Instant instant = tmp.minusNanos(tmp.getNano());
+		//microseconds
+		long us = Math.round(frac*1e6);
 		
+		if (us >= 1000000){
+			((org.python.types.Float)timestamp.__float__()).value = ((org.python.types.Float)timestamp.__float__()).value+1;
+			us = us-1000000;
+		}
+		else if (us < 0){
+			((org.python.types.Float)timestamp.__float__()).value = ((org.python.types.Float)timestamp.__float__()).value-1;
+			us = us+1000000;
+		}
+		
+		String x = ""+((org.python.types.Float)timestamp.__float__() );
+		BigDecimal y = new BigDecimal(x);
+		
+		long nanoTimeStamp = (y.multiply(new BigDecimal(1e9))).longValue();
+		
+		Instant instant = Instant.ofEpochMilli(0);
 		instant = instant.plusNanos(nanoTimeStamp);
-		
+
 		LocalDateTime ldt = LocalDateTime.ofInstant(instant, TimeZone.getDefault().toZoneId());
 		
 		org.python.types.Int year_= Int.getInt(ldt.getYear());
@@ -216,7 +235,7 @@ public class DateTime extends org.python.types.Object {
 		org.python.types.Int hour_ = Int.getInt(ldt.getHour());
 		org.python.types.Int minute_ = Int.getInt(ldt.getMinute());
 		org.python.types.Int second_ = Int.getInt(ldt.getSecond());
-		org.python.types.Int microsecond_ = Int.getInt(ldt.getNano()/1000);
+		org.python.types.Int microsecond_ = Int.getInt(us);
 		
 		org.python.types.Object[] args_ = {year_, month_, day_, hour_, minute_, second_, microsecond_};
 		
@@ -233,7 +252,7 @@ public class DateTime extends org.python.types.Object {
 		DateTime dt = new DateTime(args_, kwargs_);
 		
 		return dt.__repr__();
-	}*/
+	}
 	
 	//https://github.com/python/cpython/blob/master/Lib/datetime.py#L46
 	private boolean dayIsValid(int year, int month, int day){
