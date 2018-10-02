@@ -8,11 +8,23 @@ package python;
 public class datetime extends org.python.types.Module {
     static {
         // TODO: Add stuff here, e.g.:
-        datetime = org.python.types.Type.pythonType(org.python.stdlib.datetime.DateTime.class);
+        date = org.python.types.Type.pythonType(org.python.stdlib.datetime.Date.class);
+        timedelta = org.python.types.Type.pythonType(org.python.stdlib.datetime.Timedelta.class);
     }
 
-    @org.python.Attribute
-    public static org.python.Object datetime;
+    // @org.python.Attribute
+    // public static org.python.Object date;
+    //     //date = org.python.types.Type.pythonType(org.python.stdlib.datetime.Date.class);
+    //     //time = org.python.types.Type.pythonType(org.python.stdlib.datetime.Time.class);
+    // }
+
+
+     @org.python.Attribute
+     public static org.python.Object timedelta;
+     @org.python.Attribute
+     public static org.python.Object date;
+     @org.python.Attribute
+     public static org.python.Object time;
 
     @org.python.Attribute()
     public static org.python.Object __file__ = new org.python.types.Str("python/common/python/datetime.java");

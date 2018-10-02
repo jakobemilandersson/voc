@@ -1,17 +1,13 @@
 package org.python.test;
-import static org.junit.Assert.*;
-
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
+import org.junit.Test;
 import org.python.exceptions.IndexError;
 import org.python.exceptions.TypeError;
-import org.python.types.List;
-import org.python.types.Int;
+import org.python.types.*;
 import org.python.types.Object;
-import org.python.types.Bool;
-import org.python.types.Str;
-import java.util.*;
-import org.junit.Test;
-import junit.framework.TestCase;
+
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class JavaTest extends TestCase {
 
@@ -201,7 +197,8 @@ public class JavaTest extends TestCase {
         List y = new List();
         y.append(Int.getInt(2));
         y.append(Int.getInt(1));
-        assertEquals(x.reverse(), y);
+        x.reverse();
+        assertEquals(x, y);
     }
 
     @Test
@@ -214,6 +211,108 @@ public class JavaTest extends TestCase {
     }
 
     @Test
+    public void testListExtendList() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(4));
+        validation.append(new Str("hello"));
+
+        List elementsToAdd = new List();
+        elementsToAdd.append(Int.getInt(4));
+        elementsToAdd.append(new Str("hello"));
+
+        original.extend(elementsToAdd);
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListExtendRange() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(0));
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(4));
+
+        Range toAdd = new Range(Int.getInt(5));
+
+        original.extend(toAdd);
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListExtendNonIterable() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(4));
+
+        Object toAdd = Int.getInt(4);
+
+        try {
+            original.extend(toAdd);
+        } catch (org.python.exceptions.TypeError error) {
+            // error.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testListRemoveInteger() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.remove(Int.getInt(3));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+
+        assertEquals(original, validation);
+    }
+
+    @Test
+    public void testListRemoveFirstDuplicate() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.append(Int.getInt(2));
+        original.remove(Int.getInt(2));
+
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        validation.append(Int.getInt(2));
+
+        assertEquals(original, validation);
+    }
+    @Test
     public void testListCopy() {
         List x = new List();
         x.append(Int.getInt(1));
@@ -221,128 +320,115 @@ public class JavaTest extends TestCase {
         assertEquals(x, y);
     }
 
+    @Test
+    public void testListRemoveBoolean() {
+        List original = new List();
+        original.append(Bool.getBool(true));
+        original.append(Bool.getBool(false));
+        original.append(Bool.getBool(true));
+        original.append(Bool.getBool(false));
+        original.remove(Bool.getBool(true));
+
+        List validation = new List();
+        validation.append(Bool.getBool(false));
+        validation.append(Bool.getBool(true));
+        validation.append(Bool.getBool(false));
+
+        assertEquals(original, validation);
+    }
+	/*
+	@Test
+    public void testListPopNoArg() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.pop();
+        List validation = new List();
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        assertEquals(original, validation);
+    }
+    @Test
+    public void testListPopPosArg() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.pop(0);
+        List validation = new List();
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        assertEquals(original, validation);
+    }
+    @Test 
+    public void testListPopNegArg() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.pop(-2);
+        List validation = new List();
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        assertEquals(original, validation);
+    }
+    @Test(expected = IndexError.class)
+    public void testListPopExceptionEmpty() {
+        List original = new List();
+        original.pop();
+    }
+    @Test(expected = IndexError.class)
+    public void testListPopExceptionIndOver() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.pop(3);
+    }
+    @Test(expected = IndexError.class)
+    public void testListPopExceptionIndUnder() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.pop(-4);
+    }
+    @Test
+    public void testListInsertInt() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.insert(0, Int.getInt(4));
+        List validation = new List();
+        validation.append(Int.getInt(4));
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        assertEquals(original, validation);
+    }
+    @Test
+    public void testListInsertStr() {
+        List original = new List();
+        original.append(Int.getInt(1));
+        original.append(Int.getInt(2));
+        original.append(Int.getInt(3));
+        original.insert(0, new Str("hello"));
+        List validation = new List();
+        validation.append(new Str("hello"));
+        validation.append(Int.getInt(1));
+        validation.append(Int.getInt(2));
+        validation.append(Int.getInt(3));
+        assertEquals(original, validation);
+    }
+*/
     // -----------------------------------------------------------
+
+
+
+
     // --------- Lucas and Henrik -------------------------------
     // ----------------------------------------------------------
 
-    @Test
-    public void testLength() {
-        List x = new List();
-        x.append(Int.getInt(1));
-        for (i = 0; i < 10; i++) {
-            x.append(Int.getInt(1));
-        }
-        assertTrue(x.__len__() == Int.getInt(10));
-    }
-
-    @Test
-    public void testLength() {
-        List x = new List();
-        x.append(Int.getInt(1));
-        for (i = 0; i < 10; i++) {
-            x.append(Int.getInt(1));
-        }
-        assertTrue(x.__len__() == Int.getInt(10));
-    }
-
-    @Test
-    public void testPopNoArg() {
-        List x = new List();
-        x.append(Int.getInt(1));
-        x.pop();
-        assertTrue(x.__len__() == Int.getInt(0));
-    }
-
-    @Test
-    public void testPopIndex() {
-        List x = new List();
-        for (i = 0; i < 5; i++) {
-            x.append(Int.getInt(i));
-        }
-        x.pop(Int.getInt(4));
-        assertTrue(x.count(Int.getInt(4)) == 0);
-    }
-
-    @Test
-    pubic void testPopEmptyList(expected = IndexError.class) {
-        List x = new List();
-        try {
-            x.pop();
-        } catch (IndexError err) {
-            expected = IndexError.class
-        }
-    }
-
-    @Test
-    public void testPopIndexOutOfBounds(expected = IndexError.class) {
-        List x = new List();
-        x.append(Int.getInt(1));
-        try {
-            x.pop(Int.getInt(4));
-        } catch (IndexError err) {
-            expected = IndexError.class
-        }
-    }
-
-    @Test
-    public void testClearEmptyList() {
-        List x = new List();
-        try {
-            x.clear();
-        } catch (TypeError e) {
-        }
-    }
-
-    @Test
-    public void testClearList() {
-        List x = new List();
-        x.append(Int.getInt(1));
-        x.append(Int.getInt(2));
-        x.append(Int.getInt(3));
-        x.clear();
-        assertTrue(len(x) == 0);
-    }
-
-    @Test
-    public void testIndexEmpty(expected = ValueError.class) {
-        List x = new List();
-        try {
-            x.index();
-        } catch (ValueError err) {
-            expected = ValueError.class;
-        }
-    }
-
-    @Test
-    public void testIndexDontExist(expected = ValueError.class) {
-        List x = new List();
-        x.append(Int.getInt(1));
-        try {
-            x.index(Int.getInt(2));
-        } catch (ValueError err) {
-            expected = ValueError.class;
-        }
-    }
-
-    @Test
-    public void testIndexNotInteger(expected = TypeError.class) {
-        List x = new List();
-        x.append(Int.getInt(1));
-        try {
-            x.index(Str.getStr("1"));
-        } catch (TypeError err) {
-            expected = TypeError.class;
-        }
-    }
-
-    @Test
-    public void testIndex() {
-        List x = new List();
-        for(int i = 0; i < 3; i++) {
-            x.append(Int.getInt(i));
-        }
-        assertEqual(x.index(Int.getInt(2)), 2);
-    }
-
-    
 }
