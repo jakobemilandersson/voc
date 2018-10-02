@@ -29,8 +29,5 @@ def workload_sort():
     for x in range(0, 1000*1000*10)
         list.insert()
 
-def workload_count():
-    start_time = 
-
 workload_append()
 workload_sort()
