@@ -6,8 +6,7 @@ def stop_timer(start_time):
 def workload_append():
     start_time = time.time()
 
-    list = [1]
-
+    list = []
     for x in range(0, 1000*1000*10):
         list.append(x)
 
@@ -22,12 +21,5 @@ def workload_insert():
 
     stop_timer(start_time)
 
-def workload_sort():
-    start_time = time.time()
-
-    list = [1]
-    for x in range(0, 1000*1000*10)
-        list.insert()
-
 workload_append()
-workload_sort()
+workload_insert()
