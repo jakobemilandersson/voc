@@ -4,20 +4,23 @@ import java.util.Scanner;
 
 public class RemoveWorkload {
 
-    public RemoveWorkload() {
-
-    }
-
-    public void start() {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("new int");
+        int a = Integer.parseInt(s.nextLine());
+        long startTime = System.currentTimeMillis();
         org.python.types.List newList = new org.python.types.List();
-        for (int i = 0; i < 1000000; i++)
+        for (int i = 0; i < 1000000; i++) {
             newList.append(Int.getInt(i));
+        }
 
-        for (int i = 3000; i < 4000; i++)
+        for (int i = 3000; i < 4000; i++) {
             newList.remove(Int.getInt(i));
+        }
 
-        for (int i = 100000; i < 100500; i++)
+        for (int i = 100000; i < 100500; i++) {
             newList.remove(Int.getInt(i));
+        }
 
 
         newList.remove(Int.getInt(32483));
@@ -51,15 +54,6 @@ public class RemoveWorkload {
 
         newList.clear();
 
-    }
-
-    public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
-        Scanner s = new Scanner(System.in);
-        System.out.println("new int");
-        int a = Integer.parseInt(s.nextLine());
-        RemoveWorkload x = new RemoveWorkload();
-        x.start();
         long endTime = System.currentTimeMillis();
         System.out.println("That took " + (endTime - startTime) + " milliseconds");
     }
