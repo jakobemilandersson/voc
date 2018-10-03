@@ -21,3 +21,7 @@ tests/tmp*
 *.class
 .DS_Store
 .idea
+out/production/python/org/
+python/common/org/org.iml
+python/common/org/out/
+python/python.iml
