@@ -22,23 +22,11 @@ def workload_insert():
 
     stop_timer(start_time)
 
-'''
-            Mixat, skapa lista, fyll med element, sortera, 
-            hitta ett visst element, ta bort det, 
-            lägg till ett nytt element. - Jacob
-
-
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!   Im not to sure of how we would like it to be like,     !!!
-    !!!   if I should sort, find and replace more than just one  !!!
-    !!!   element or keep it this way?                           !!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-'''
 def workload_mix():
     #Create and populate a List object with 999'999 random integers
-    #and then lastly append '4222193' for searching purposes. 
+    #and then lastly append '4222193' for searching purposes.
     rand_list = []
-    for x in range(0, (1000*1000)-1):
+    for x in range(0, (1000*1000*2)-1):
         rand_list.append(randint(0, 1000*1000))
 
     rand_list.append(4222193)
@@ -54,7 +42,7 @@ def workload_mix():
     #but keeping it until you guys have seen it and said
     #what you think! :)
     list = []
-    for x in range(0,1000*1000):
+    for x in range(0,1000*1000*2):
         list.append(rand_list[x])
 
     list.sort()
