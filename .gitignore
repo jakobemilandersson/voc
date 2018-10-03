@@ -20,3 +20,4 @@ tests/tmp*
 /python/*.class
 *.class
 .DS_Store
+.idea
