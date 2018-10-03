@@ -20,5 +20,4 @@ tests/tmp*
 /python/*.class
 *.class
 .DS_Store
-.idea/
-python/python.iml
+.idea
