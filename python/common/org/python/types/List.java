@@ -728,4 +728,37 @@ public class List extends org.python.types.Object {
     public org.python.Object __round__(org.python.Object ndigits) {
         throw new org.python.exceptions.TypeError("type list doesn't define __round__ method");
     }
+
+    public org.python.Object bubbleSort(final org.python.Object key, org.python.Object reverse) {
+        if (key == null && reverse == null) {
+            org.python.types.List arr = (List) this.value;
+
+            Int n = arr.__len__();
+            for (int i = 0; i < n-1; i++)
+                for (int j = 0; j < n-i-1; j++)
+                    if (arr[j] > arr[j+1])
+                    {
+                        // swap temp and arr[i]
+                        int temp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = temp;
+                    }
+        } else {
+            // needs to be final in order to use inside the comparator
+            final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
+
+            Collections.sort(this.value, new Comparator<org.python.Object>() {
+                @Override
+                public int compare(org.python.Object o1, org.python.Object o2) {
+                    org.python.Object val1 = o1;
+                    org.python.Object val2 = o2;
+                    if (key != null) {
+                        val1 = ((org.python.types.Function) key).invoke(o1, null, null);
+                        val2 = ((org.python.types.Function) key).invoke(o2, null, null);
+                    }
+                    return shouldReverse ? val2.compareTo(val1) : val1.compareTo(val2);
+                }
+            });
+        }
+    }
 }
