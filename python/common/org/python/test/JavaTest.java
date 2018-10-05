@@ -1,5 +1,6 @@
 package org.python.test;
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
 import org.python.exceptions.IndexError;
 import org.python.exceptions.TypeError;
@@ -9,14 +10,14 @@ import org.python.types.Object;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public class JavaTest extends TestCase {
+public class JavaTest {
 
     // ----------------- Erika and Daniel------------------
 
     @Test
     public void testCreation() {
         List x = new List();
-        assertTrue(x.__len__() == Int.getInt(0));
+        Assert.assertTrue(x.__len__() == Int.getInt(0));
     }
 
     @Test
@@ -29,13 +30,13 @@ public class JavaTest extends TestCase {
         x.append(firstInt);
         x.append(secondInt);
         Bool firstIntExist = (Bool) x.__contains__(firstInt);
-        assertTrue(firstIntExist.value);
+        Assert.assertTrue(firstIntExist.value);
 
         // Testappending mixed types in list
         Str s = new Str("hello");
         x.append(s);
         Bool strInList = (Bool) x.__contains__(s);
-        assertTrue(strInList.value && firstIntExist.value);
+        Assert.assertTrue(strInList.value && firstIntExist.value);
     }
 
     @Test
@@ -51,7 +52,7 @@ public class JavaTest extends TestCase {
         x.append(obj3);
         x.append(obj4);
 
-        assertEquals(((Str) x.__getitem__(Int.getInt(2))).value, "again and again");
+        Assert.assertEquals(((Str) x.__getitem__(Int.getInt(2))).value, "again and again");
     }
 
     @Test
@@ -60,7 +61,7 @@ public class JavaTest extends TestCase {
         List x1 = new List();
         x1.append(Int.getInt(1));
         x1.__setitem__(Int.getInt(0), Int.getInt(5));
-        assertEquals(x1.__getitem__(Int.getInt(0)), Int.getInt(5));
+        Assert.assertEquals(x1.__getitem__(Int.getInt(0)), Int.getInt(5));
 
     }
 
@@ -75,7 +76,7 @@ public class JavaTest extends TestCase {
 
         x2.__setitem__(Int.getInt(1), new Str("hello"));
         x2.__setitem__(Int.getInt(2), new Str("there"));
-        assertTrue(
+        Assert.assertTrue(
                 x2.__getitem__(Int.getInt(0)) == Int.getInt(1) && ((Str) x2.__getitem__(Int.getInt(1))).value == "hello"
                         && ((Str) x2.__getitem__(Int.getInt(2))).value == "there");
     }
@@ -108,7 +109,7 @@ public class JavaTest extends TestCase {
         x.append(Int.getInt(1));
         Object boolindx = Bool.getBool(false);
         x.__setitem__(boolindx, Int.getInt(123));
-        assertTrue(x.__getitem__(Int.getInt(0)) == Int.getInt(123));
+        Assert.assertTrue(x.__getitem__(Int.getInt(0)) == Int.getInt(123));
     }
 
     @Test
@@ -116,13 +117,13 @@ public class JavaTest extends TestCase {
         List x = new List();
         x.append(Int.getInt(5));
         x.__delitem__(Int.getInt(0));
-        assertTrue(x.__len__() == Int.getInt(0));
+        Assert.assertTrue(x.__len__() == Int.getInt(0));
 
 
         Object boolindx = Bool.getBool(false);
         x.append(Int.getInt(969));
         x.__delitem__(boolindx);
-        assertTrue(x.__len__() == Int.getInt(0));
+        Assert.assertTrue(x.__len__() == Int.getInt(0));
     }
 
     @Test(expected = IndexError.class)
@@ -147,7 +148,7 @@ public class JavaTest extends TestCase {
 
         x.__delitem__(Int.getInt(-2));
 
-        assertTrue(x.__len__() == Int.getInt(2) &&
+        Assert.assertTrue(x.__len__() == Int.getInt(2) &&
                 ((Int) x.__getitem__(Int.getInt(0))).value == (Int.getInt(1)).value &&
                 ((Int) x.__getitem__(Int.getInt(1))).value == (Int.getInt(3)).value);
     }
@@ -186,7 +187,7 @@ public class JavaTest extends TestCase {
         List x = new List();
         x.append(Int.getInt(1));
         x.append(Int.getInt(2));
-        assertEquals(x.__contains__(Int.getInt(1)), Bool.getBool(true));
+        Assert.assertEquals(x.__contains__(Int.getInt(1)), Bool.getBool(true));
     }
 
     @Test
@@ -198,7 +199,7 @@ public class JavaTest extends TestCase {
         y.append(Int.getInt(2));
         y.append(Int.getInt(1));
         x.reverse();
-        assertEquals(x, y);
+        Assert.assertEquals(x, y);
     }
 
     @Test
@@ -207,7 +208,7 @@ public class JavaTest extends TestCase {
         x.append(Int.getInt(1));
         x.append(Int.getInt(1));
         x.append(Int.getInt(2));
-        assertEquals(x.count(Int.getInt(1)), Int.getInt(2));
+        Assert.assertEquals(x.count(Int.getInt(1)), Int.getInt(2));
     }
 
     @Test
@@ -230,7 +231,7 @@ public class JavaTest extends TestCase {
 
         original.extend(elementsToAdd);
 
-        assertEquals(original, validation);
+        Assert.assertEquals(original, validation);
     }
 
     @Test
@@ -254,7 +255,7 @@ public class JavaTest extends TestCase {
 
         original.extend(toAdd);
 
-        assertEquals(original, validation);
+        Assert.assertEquals(original, validation);
     }
 
     @Test
@@ -291,7 +292,7 @@ public class JavaTest extends TestCase {
         validation.append(Int.getInt(1));
         validation.append(Int.getInt(2));
 
-        assertEquals(original, validation);
+        Assert.assertEquals(original, validation);
     }
 
     @Test
@@ -310,14 +311,14 @@ public class JavaTest extends TestCase {
         validation.append(Int.getInt(3));
         validation.append(Int.getInt(2));
 
-        assertEquals(original, validation);
+        Assert.assertEquals(original, validation);
     }
     @Test
     public void testListCopy() {
         List x = new List();
         x.append(Int.getInt(1));
         List y = (List) x.copy();
-        assertEquals(x, y);
+        Assert.assertEquals(x, y);
     }
 
     @Test
@@ -334,7 +335,7 @@ public class JavaTest extends TestCase {
         validation.append(Bool.getBool(true));
         validation.append(Bool.getBool(false));
 
-        assertEquals(original, validation);
+        Assert.assertEquals(original, validation);
     }
 	/*
 	@Test
@@ -448,4 +449,25 @@ public class JavaTest extends TestCase {
     // --------- Lucas and Henrik -------------------------------
     // ----------------------------------------------------------
 
+
+
+    // --------- Adam and Erika ---------------------------------
+
+    @Test
+    public void testSort() {
+        List x = new List();
+
+        x.append(Int.getInt(3));
+        x.append(Int.getInt(2));
+        x.append(Int.getInt(1));
+        x.sort(null, null);
+
+        List x2 = new List();
+
+        x2.append(Int.getInt(1));
+        x2.append(Int.getInt(2));
+        x2.append(Int.getInt(3));
+
+        assertEquals(x, x2);
+    }
 }
