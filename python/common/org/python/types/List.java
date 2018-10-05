@@ -731,18 +731,26 @@ public class List extends org.python.types.Object {
 
     public org.python.Object bubbleSort(final org.python.Object key, org.python.Object reverse) {
         if (key == null && reverse == null) {
-            org.python.types.List arr = (List) this.value;
 
-            Int n = arr.__len__();
+            int n = this.value.size();
+
             for (int i = 0; i < n-1; i++)
-                for (int j = 0; j < n-i-1; j++)
-                    if (arr[j] > arr[j+1])
+                for (int j = 0; j < n-i-1; j++){
+                     long val = (long)this.value.get(j).toJava();
+                     long val1 = (long) this.value.get(j+1).toJava();
+                  //  int val1 = (int) arr.__getitem__(Int.getInt(j)).toJava();
+                   // int val2 = (int) arr.__getitem__(Int.getInt(j+1)).toJava();
+                 //   System.out.println(val + "first val");
+                 //   System.out.println(val1 + "second val");
+                    if (val < val1);
                     {
                         // swap temp and arr[i]
-                        int temp = arr[j];
-                        arr[j] = arr[j+1];
-                        arr[j+1] = temp;
+                        org.python.Object temp = this.value.get(j);
+                        org.python.Object setVal = this.value.get(j+1);
+                        this.value.set(j, setVal);
+                        this.value.set(j+1,temp);
                     }
+                }
         } else {
             // needs to be final in order to use inside the comparator
             final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
@@ -760,5 +768,6 @@ public class List extends org.python.types.Object {
                 }
             });
         }
+        return org.python.types.NoneType.NONE;
     }
 }

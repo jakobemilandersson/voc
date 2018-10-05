@@ -24,7 +24,7 @@ public class SortWorkload {
 
     public void sorts() {
         //System.out.println(newList.value);
-        newList.sort(null, null);
+        newList.bubbleSort(null, null);
         //System.out.println(newList.value);
     }
 
