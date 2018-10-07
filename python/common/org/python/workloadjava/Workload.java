@@ -10,7 +10,7 @@ public class Workload {
     public static void workloadAppend() {
         List list = new List();
 
-        for(int i = 0; i < 1000*1000*1; i++) {
+        for(int i = 0; i < 1000*1000*10; i++) {
             list.append(Int.getInt(i));
         }
     }
@@ -18,7 +18,7 @@ public class Workload {
     public static void workloadInsert() {
         List list = new List();
 
-        for(int i = 0; i < 1000*1000*1; i++) {
+        for(int i = 0; i < 1000*1000*5; i++) {
             list.insert(Int.getInt(i), Int.getInt(i));
         }
     }
