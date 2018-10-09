@@ -1,4 +1,4 @@
-SIZE = 10000000
+SIZE = 1000000
 
 l_ = []
 l = []
@@ -7,18 +7,23 @@ for i in range(SIZE):
     l_.append(-i)
 
 
-#list.reverse + list.extend workload
-def rev_ext(l1, l2):
-    l1.reverse()
-    l2.reverse()
-    
-    l1.extend(l2)
-    
-#list.index workload
-def ind(l1):
-    l1.index(1)
-    l1.index(SIZE/2)
-    l1.index(SIZE-1)
+# list.reverse + list.extend workload
+def ext(l1, l2):
+    for i in range(10):
+        l1.extend(l2)
 
-rev_ext(l, l_)
+def rev(l1,l2):
+    for i in range(500):
+        l1.reverse()
+        l2.reverse()
+
+# list.index workload
+def ind(l1):
+    for i in range(0, 100):
+        l1.index(SIZE-i-1)
+
+
+rev(l, l_)
+ext(l, l_)
 ind(l)
+
