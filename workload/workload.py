@@ -1,32 +1,24 @@
-import time
+SIZE = 10000000
 
-#For measuring time of a function
-def measure(func):
-    start_time = time.time()
-    func()
-    
-    print(func.__name__ + ": %s seconds" % (time.time() - start_time))
+l_ = []
+l = []
+for i in range(SIZE):
+    l.append(i)
+    l_.append(-i)
+
 
 #list.reverse + list.extend workload
-def rev_ext():
-    l = []
-    l_ = []
+def rev_ext(l1, l2):
+    l1.reverse()
+    l2.reverse()
     
-    for i in range(10000000):
-        l.append(i)
-        l_.append(-i)
-    
-    l.reverse()
-    l_.reverse()
-    
-    l.extend(l_)
+    l1.extend(l2)
     
 #list.index workload
-def ind():
-    l = [i for i in range(20000)]
-    
-    for element in l:
-        garbage = l.index(element)
-    
-measure(rev_ext)
-measure(ind)
+def ind(l1):
+    l1.index(1)
+    l1.index(SIZE/2)
+    l1.index(SIZE-1)
+
+rev_ext(l, l_)
+ind(l)
