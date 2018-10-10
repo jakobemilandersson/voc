@@ -5,40 +5,47 @@ import org.python.types.List;
 import org.python.types.Object;
 
 public class Workload {
-    public static void rev_ext(){
-        int size = 1000000;
+    private int size;
+    public List l;
+    public List l_;
 
-        List l = new List();
-        List l_ = new List();
+    public Workload() {
+        this.size = 1000000;
+        this.l = new List();
+        this.l_ = new List();
 
-        for(int i = 0; i < size; i++){
-            l.append(Int.getInt(i));
-            l_.append(Int.getInt(-i));
+        for(int i = 0; i < this.size; i++){
+            this.l.append(Int.getInt(i));
+            this.l_.append(Int.getInt(-i));
         }
-
-        l.reverse();
-        l_.reverse();
-
-        l.extend(l_);
     }
-    
-    public static void ind() {
-        int size = 20000;
 
-        List l = new List();
+    public void extend(List l1, List l2) {
+        for(int i = 0; i < 10; i++){
+            l1.extend(l2);
+        }
+    }
 
-        for(int i = 0; i < size; i++)
-            l.append(Int.getInt(i));
+    public void reverse(List l1, List l2){
+        for(int i = 0; i<500;i++){
+            l1.reverse();
+            l2.reverse();
+        }
+    }
 
-        for(int i = 0; i < size; i++)
-            l.index(Int.getInt(i), Int.getInt(0), Int.getInt(size));
+    public void ind(List l1) {
+        for(int i = 1; i < 100; i++){
+            l1.index(Int.getInt(this.size-i), Int.getInt(0), Int.getInt(this.size));
+        }
     }
 
     public static void main(String args[]) {
 
         System.out.println("Started running workload functions");
-        Workload.rev_ext();
-        Workload.ind();
+        Workload w = new Workload();
+        w.extend(w.l, w.l_);
+        w.reverse(w.l,w.l_);
+        w.ind(w.l);
         System.out.println("Finished!");
 
     }
