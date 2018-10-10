@@ -23,8 +23,11 @@ public class SortWorkload {
     }
 
     public void sorts() {
-        //System.out.println(newList.value);
-        newList.bubbleSort(null, null);
+        //Our implementation of sort
+       // newList.bubbleSort(null,null);
+
+        //The original implementation of sort
+        newList.sort(null, null);
         //System.out.println(newList.value);
     }
 

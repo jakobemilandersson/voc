@@ -753,20 +753,7 @@ public class List extends org.python.types.Object {
                 }
         } else {
             // needs to be final in order to use inside the comparator
-            final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
-
-            Collections.sort(this.value, new Comparator<org.python.Object>() {
-                @Override
-                public int compare(org.python.Object o1, org.python.Object o2) {
-                    org.python.Object val1 = o1;
-                    org.python.Object val2 = o2;
-                    if (key != null) {
-                        val1 = ((org.python.types.Function) key).invoke(o1, null, null);
-                        val2 = ((org.python.types.Function) key).invoke(o2, null, null);
-                    }
-                    return shouldReverse ? val2.compareTo(val1) : val1.compareTo(val2);
-                }
-            });
+           sort(key, reverse);
         }
         return org.python.types.NoneType.NONE;
     }
