@@ -455,6 +455,7 @@ public class JavaTest {
 
     @Test
     public void testSort() {
+
         List x = new List();
 
         x.append(Int.getInt(3));
@@ -469,5 +470,60 @@ public class JavaTest {
         x2.append(Int.getInt(3));
 
         assertEquals(x, x2);
+
+        List x3 = new List();
+        x3.append(Int.getInt(1));
+        x3.append(Int.getInt(5));
+        x3.append(Int.getInt(3));
+        x3.append(Int.getInt(2));
+        x3.append(Int.getInt(4));
+        x3.append(Int.getInt(9));
+        x3.append(Int.getInt(12));
+        x3.bubbleSort(null, null);
+
+        List x4 = new List();
+        x4.append(Int.getInt(1));
+        x4.append(Int.getInt(2));
+        x4.append(Int.getInt(3));
+        x4.append(Int.getInt(4));
+        x4.append(Int.getInt(5));
+        x4.append(Int.getInt(9));
+        x4.append(Int.getInt(12));
+
+        assertEquals(x3, x4);
+
+        List x5 = new List();
+        x5.append(Int.getInt(1));
+        x5.append(Int.getInt(2));
+        x5.append(Int.getInt(3));
+        x5.append(Int.getInt(4));
+        x5.append(Int.getInt(5));
+        x5.append(Int.getInt(9));
+        x5.append(Int.getInt(12));
+        x5.bubbleSort(null, Bool.getBool(true));
+        List x6 = new List();
+        x6.append(Int.getInt(12));
+        x6.append(Int.getInt(9));
+        x6.append(Int.getInt(5));
+        x6.append(Int.getInt(4));
+        x6.append(Int.getInt(3));
+        x6.append(Int.getInt(2));
+        x6.append(Int.getInt(1));
+        assertEquals(x5, x6);
+
+        List x7 = new List();
+        x7.append(new Str("B"));
+        x7.append(new Str("C"));
+        x7.append(new Str("A"));
+        x7.append(new Str("K"));
+        x7.sort(null, null);
+
+        List x8 = new List();
+        x8.append(new Str("A"));
+        x8.append(new Str("B"));
+        x8.append(new Str("C"));
+        x8.append(new Str("K"));
+
+        assertEquals(x7, x8);
     }
 }
