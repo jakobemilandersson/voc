@@ -8,8 +8,8 @@ def workload_append():
     start_time = time.time()
 
     list = []
-    for x in range(0, 1000*10*3):
-        powInt = 2 ** x
+    for x in range(0, 1000*1000*2):
+        powInt = 1 ** x
         list.append(powInt)
 
     stop_timer(start_time)

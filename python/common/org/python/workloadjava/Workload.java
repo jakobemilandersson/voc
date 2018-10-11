@@ -10,8 +10,9 @@ public class Workload {
     public static void workloadAppend() {
         List list = new List();
 
-        for(int i = 0; i < 1000*1000*10; i++) {
-            list.append(Int.getInt(i));
+        for(int i = 0; i < 200000; i++) {
+            Int powInt = (Int) Int.getInt(1).__pow__(Int.getInt(i), null);
+            list.append(powInt);
         }
     }
 
@@ -52,8 +53,8 @@ public class Workload {
 
     public static void main(String args[]) {
         System.out.println("Running workload functions...");
-        Workload.workloadMix();
-        //Workload.workloadAppend();
+        //Workload.workloadMix();
+        Workload.workloadAppend();
         //Workload.workloadInsert();
         System.out.println("Workload functions finished!");
     }
