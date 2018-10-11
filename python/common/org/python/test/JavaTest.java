@@ -317,96 +317,25 @@ public class JavaTest {
 
         Assert.assertEquals(original, validation);
     }
-	/*
-	@Test
-    public void testListPopNoArg() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop();
-        List validation = new List();
-        validation.append(Int.getInt(1));
-        validation.append(Int.getInt(2));
-        assertEquals(original, validation);
-    }
-    @Test
-    public void testListPopPosArg() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(0);
-        List validation = new List();
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-        assertEquals(original, validation);
-    }
-    @Test 
-    public void testListPopNegArg() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(-2);
-        List validation = new List();
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-        assertEquals(original, validation);
-    }
-    @Test(expected = IndexError.class)
-    public void testListPopExceptionEmpty() {
-        List original = new List();
-        original.pop();
-    }
-    @Test(expected = IndexError.class)
-    public void testListPopExceptionIndOver() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(3);
-    }
-    @Test(expected = IndexError.class)
-    public void testListPopExceptionIndUnder() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(-4);
-    }
-    @Test
-    public void testListInsertInt() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.insert(0, Int.getInt(4));
-        List validation = new List();
-        validation.append(Int.getInt(4));
-        validation.append(Int.getInt(1));
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-        assertEquals(original, validation);
-    }
-    @Test
-    public void testListInsertStr() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.insert(0, new Str("hello"));
-        List validation = new List();
-        validation.append(new Str("hello"));
-        validation.append(Int.getInt(1));
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-        assertEquals(original, validation);
-    }
-*/
     // -----------------------------------------------------------
 
+    // --------- Daniel, Jakob and Henrik  - SPRINT 3-------------
+    @Test
+    public void testPowToLargeNum() {
+        List x = new List();
+        Int powerToInt = (Int) Int.getInt(1).__pow__(Int.getInt(1337), null);
+        x.append(powerToInt);
+        Assert.assertEquals(((Int) x.__getitem__(Int.getInt(0))).value, 1);
+    }
 
+    @Test
+    public void testPowToSmallNum() {
+        List x = new List();
+        Int powerToInt = (Int) Int.getInt(1).__pow__(Int.getInt(3), null);
+        x.append(powerToInt);
+        Assert.assertEquals(((Int) x.__getitem__(Int.getInt(0))).value, 1);
+    }
+    // -----------------------------------------------------------
 
 
     // --------- Lucas and Henrik -------------------------------
