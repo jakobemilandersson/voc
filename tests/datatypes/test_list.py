@@ -20,11 +20,6 @@ class ListTests(TranspileTestCase):
         x = ["respects numbers", 1121212]
         """)
 
-    def test_different_types(self):
-        self.assertCodeExecution("""
-        x = ["respects numbers", 1121212]
-        """)
-
     def test_concat_lists(self):
         self.assertCodeExecution("""
         x = ["a", "b", "c"]
@@ -46,7 +41,7 @@ class ListTests(TranspileTestCase):
         print(x)
         """)
 
-    def test_reverse(self):
+    def test_reverse_numbers(self):
         self.assertCodeExecution("""
         x = [1, 3, 4, 76]
         x.reverse()
@@ -439,7 +434,7 @@ class ListTests(TranspileTestCase):
             print(x.count(1))
             """)
 
-    def test_sort(self):
+    def test_sort_fictures(self):
         self.assertCodeExecution("""
             fixtures = [
                 [9, 4, 7],
@@ -478,7 +473,7 @@ class ListTests(TranspileTestCase):
             print(x)
             """)
 
-    def test_pop(self):
+    def test_pop_element(self):
         self.assertCodeExecution("""
             x = [1, 2, 3]
             print(x.pop())

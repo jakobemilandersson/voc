@@ -11,18 +11,18 @@ public class Workload {
     public static void workloadAppend() {
         ListAlt list = new ListAlt();
 
-        for(int i = 0; i < 1000*1000*1; i++) {
-            list.append(Int.getInt(i));
+        for(int i = 0; i < 200000; i++) {
+            Int powInt = (Int) Int.getInt(1).__pow__(Int.getInt(i), null);
+            list.append(powInt);
         }
     }
 
     public static void workloadInsert() {
         ListAlt list = new ListAlt();
-        //List list = new List();
+        //List list = new List(); Uses original representation
 
-        for(int i = 0; i < 1000*1000*0.2; i++) {
-            int randomNum = ThreadLocalRandom.current().nextInt(0, (1000*1000) + 1);
-
+        for (int i = 0; i < 1000 * 1000 * 0.2; i++) {
+            int randomNum = ThreadLocalRandom.current().nextInt(0, (1000 * 1000) + 1);
             list.insert(Int.getInt(randomNum), Int.getInt(i));
         }
     }
@@ -56,9 +56,9 @@ public class Workload {
 
     public static void main(String args[]) {
         System.out.println("Running workload functions...");
-        //Workload.workloadMix();
-        //Workload.workloadAppend();
+        Workload.workloadMix();
         Workload.workloadInsert();
+        Workload.workloadAppend();
         System.out.println("Workload functions finished!");
     }
 }

@@ -29,6 +29,10 @@ public class List extends org.python.types.Object {
     public List() {
         super();
         this.value = new java.util.LinkedList<org.python.Object>();
+
+        // (1) Uncomment for LinkedList implemenation (Remeber
+        //          to uncomment in 'index' function aswell!)
+        //this.value = new java.util.LinkedList<org.python.Object>();
     }
 
     public List(java.util.List<org.python.Object> list) {
@@ -627,7 +631,7 @@ public class List extends org.python.types.Object {
                         "list indices must be integers or slices, not " + end.typeName());
             }
         }
-
+        // (1)  Uncomment for ArrayList implementation
         int iStart = 0, iEnd = this.value.size();
         if (end != null) {
             iEnd = toPositiveIndex(((Long) end.toJava()).intValue());
@@ -643,6 +647,17 @@ public class List extends org.python.types.Object {
         }
         throw new org.python.exceptions.ValueError(
                 String.format("%d is not in list", ((org.python.types.Int) item).value));
+        // (1) end
+        // (2) Uncomment for LinkedList implemenation
+        /*
+        try {
+            return org.python.types.Int.getInt(this.value.indexOf(item.__int__()));
+        } catch(org.python.exceptions.ValueError e) {
+            throw new org.python.exceptions.ValueError(
+                String.format("%d is not in list", ((org.python.types.Int) item).value));
+        }
+        */
+        // (2) end
     }
 
     @org.python.Method(__doc__ = "L.insert(index, value) -> None -- Insert an item at a given index.", args = { "index",
