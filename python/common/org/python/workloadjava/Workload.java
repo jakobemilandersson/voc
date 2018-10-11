@@ -2,7 +2,6 @@ package org.python.workloadjava;
 import org.python.types.Int;
 import org.python.types.List;
 import org.python.types.ListAlt;
-import org.python.types.Object;
 
 import java.util.concurrent.ThreadLocalRandom;
 
