@@ -9,7 +9,7 @@ import org.python.types.Object;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public class JavaTest extends TestCase {
+public class JavaTest {
 
     // ----------------- Erika and Daniel------------------
 
@@ -83,11 +83,7 @@ public class JavaTest extends TestCase {
     @Test(expected = IndexError.class)
     public void testSetItemOutOfBounds() {
         List x = new List();
-        try {
-            x.__setitem__(Int.getInt(0), Int.getInt(5));
-        } catch (IndexError e) {
-        }
-
+        x.__setitem__(Int.getInt(0), Int.getInt(5));
     }
 
     @Test(expected = IndexError.class)
@@ -95,11 +91,7 @@ public class JavaTest extends TestCase {
         // try to set item on negative index
         List x = new List();
         x.append(Int.getInt(1));
-        try {
-            x.__setitem__(Int.getInt(-2), Int.getInt(5));
-        } catch (IndexError e) {
-        }
-
+        x.__setitem__(Int.getInt(-2), Int.getInt(5));
     }
 
     @Test
@@ -131,11 +123,7 @@ public class JavaTest extends TestCase {
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(Int.getInt(-4));
-        } catch (IndexError e) {
-        }
-
+        x.__delitem__(Int.getInt(-4));
     }
 
     @Test
@@ -152,7 +140,7 @@ public class JavaTest extends TestCase {
                 ((Int) x.__getitem__(Int.getInt(1))).value == (Int.getInt(3)).value);
     }
 
-    @Test(expected = IndexError.class)
+    @Test
     public void testDelItemPosOutOfRange() {
         List x = new List();
         x.append(Int.getInt((1)));
@@ -170,10 +158,7 @@ public class JavaTest extends TestCase {
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(new Str("one"));
-        } catch (TypeError e) {
-        }
+        x.__delitem__(new Str("one"));
     }
 
     // -------------------------------------------------------

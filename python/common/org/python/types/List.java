@@ -28,7 +28,7 @@ public class List extends org.python.types.Object {
 
     public List() {
         super();
-        this.value = new java.util.ArrayList<org.python.Object>();
+        this.value = new java.util.LinkedList<org.python.Object>();
     }
 
     public List(java.util.List<org.python.Object> list) {

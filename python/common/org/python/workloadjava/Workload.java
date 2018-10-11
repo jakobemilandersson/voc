@@ -1,6 +1,7 @@
 package org.python.workloadjava;
 import org.python.types.Int;
 import org.python.types.List;
+import org.python.types.ListAlt;
 import org.python.types.Object;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Workload {
 
     public static void workloadAppend() {
-        List list = new List();
+        ListAlt list = new ListAlt();
 
         for(int i = 0; i < 1000*1000*1; i++) {
             list.append(Int.getInt(i));
@@ -16,10 +17,13 @@ public class Workload {
     }
 
     public static void workloadInsert() {
-        List list = new List();
+        ListAlt list = new ListAlt();
+        //List list = new List();
 
-        for(int i = 0; i < 1000*1000*1; i++) {
-            list.insert(Int.getInt(i), Int.getInt(i));
+        for(int i = 0; i < 1000*1000*0.2; i++) {
+            int randomNum = ThreadLocalRandom.current().nextInt(0, (1000*1000) + 1);
+
+            list.insert(Int.getInt(randomNum), Int.getInt(i));
         }
     }
 
@@ -52,9 +56,9 @@ public class Workload {
 
     public static void main(String args[]) {
         System.out.println("Running workload functions...");
-        Workload.workloadMix();
+        //Workload.workloadMix();
         //Workload.workloadAppend();
-        //Workload.workloadInsert();
+        Workload.workloadInsert();
         System.out.println("Workload functions finished!");
     }
 }

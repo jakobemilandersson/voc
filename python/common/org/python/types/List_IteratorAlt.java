@@ -1,7 +1,7 @@
 package org.python.types;
 
-class List_Iterator extends org.python.types.Iterator {
-    public List_Iterator(org.python.types.List list) {
+class List_IteratorAlt extends Iterator {
+    public List_IteratorAlt(ListAlt list) {
         this.iterator = list.value.iterator();
     }
 }
