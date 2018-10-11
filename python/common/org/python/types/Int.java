@@ -519,7 +519,10 @@ public class Int extends org.python.types.Object {
                 }
                 return new org.python.types.Float(1.0 / result);
             } else {
+                if(this.value == 1) return Int.getInt(1);
+
                 long result = 1;
+
                 for (long count = 0; count < other_val; count++) {
                     result *= this.value;
                 }

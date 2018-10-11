@@ -10,47 +10,51 @@ public class Workload {
     public static void workloadAppend() {
         List list = new List();
 
-        for(int i = 0; i < 1000*1000*1; i++) {
-            list.append(Int.getInt(i));
+        for(int i = 0; i < 200000; i++) {
+            Int powInt = (Int) Int.getInt(1).__pow__(Int.getInt(i), null);
+            list.append(powInt);
         }
     }
 
     public static void workloadInsert() {
         List list = new List();
 
-        for(int i = 0; i < 1000*1000*1; i++) {
+        for(int i = 0; i < 1000*1000*5; i++) {
             list.insert(Int.getInt(i), Int.getInt(i));
         }
     }
 
+    // Change so that 'randList' is not used anymore, the code for populating
+    // 'randList' are instead used directly on 'list'.
+    // This makes the code less similar to the python implementation
+    // but since the timer doesn't activate until after 'randList' in the
+    // python implementation is populated, this should make actual workload
+    // (num. of function-calls etc.) between the two implementations
+    // more precise! And thus should make it easier to analyse the two
+    // different implementations!
+    //
+    // THIS IS NOT FINAL, WE CAN ALWAYS CHANGE BACK! :)
     public static void workloadMix() {
-        List randList = new List();
+        List list = new List();
 
         for(int i = 0; i < (1000*1000)-1; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(0, (1000*1000) + 1);
-            randList.append(Int.getInt(randomNum));
+            list.append(Int.getInt(randomNum));
         }
 
-        randList.append(Int.getInt(4222193));
-
-        List list = new List();
-        for(int i = 0; i < 1000*1000; i++) {
-            Int randInt = (Int)randList.__getitem__(Int.getInt(i));
-            list.append(randInt);
-        }
+        list.append(Int.getInt(4222193));
 
         list.sort(null, null);
         Int ind = (Int)list.index(Int.getInt(4222193), null, null);
         list.pop(ind);
         list.insert(ind, Int.getInt(-1));
 
-
     }
 
     public static void main(String args[]) {
         System.out.println("Running workload functions...");
-        Workload.workloadMix();
-        //Workload.workloadAppend();
+        //Workload.workloadMix();
+        Workload.workloadAppend();
         //Workload.workloadInsert();
         System.out.println("Workload functions finished!");
     }
