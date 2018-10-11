@@ -182,6 +182,14 @@ public class JavaTest extends TestCase {
     
     // --------- Adam, Tor and Jakob ---------------------------
     @Test
+    public void testListIndex() {
+        List x = new List();
+        x.append(Int.getInt(2));
+        x.append(Int.getInt(1));
+        x.append(Int.getInt(3));
+        assertEquals(x.index(Int.getInt(3), Int.getInt(0), Int.getInt(2)), Int.getInt(2));
+    }
+    @Test
     public void testListContains() {
         List x = new List();
         x.append(Int.getInt(1));

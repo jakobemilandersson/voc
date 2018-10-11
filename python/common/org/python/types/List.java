@@ -701,12 +701,26 @@ public class List extends org.python.types.Object {
         if (start != null) {
             iStart = toPositiveIndex(((Long) start.toJava()).intValue());
         }
-
+        /*
         for (int i = iStart; i < Math.min(iEnd, this.value.size()); i++) {
             if (((org.python.types.Bool) org.python.types.Object.__cmp_eq__(item, this.value.get(i))).value) {
                 return org.python.types.Int.getInt(i);
             }
         }
+        */
+        int i = 0;
+        org.python.Object iterator = this.__iter__();
+        try {
+            while (true) {
+                org.python.Object obj = iterator.__next__();
+                if (((org.python.types.Bool) org.python.types.Object.__cmp_eq__(item, obj)).value) {
+                    return org.python.types.Int.getInt(i);
+                }
+                i = i + 1;
+            }
+        } catch (org.python.exceptions.StopIteration si) {
+        }
+
         throw new org.python.exceptions.ValueError(
                 String.format("%d is not in list", ((org.python.types.Int) item).value));
     }
