@@ -137,7 +137,7 @@ public class JavaTest {
             ((Int) x.__getitem__(Int.getInt(1))).value == (Int.getInt(3)).value);
     }
 
-    @Test
+    @Test(expected = IndexError.class)
     public void testDelItemPosOutOfRange() {
         List x = new List();
         x.append(Int.getInt((1)));
