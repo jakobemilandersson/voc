@@ -718,9 +718,28 @@ public class List extends org.python.types.Object {
             "key", "reverse" })
     public org.python.Object sort(final org.python.Object key, org.python.Object reverse) {
         if (key == null && reverse == null) {
-            Collections.sort(this.value);
+          if(this.value.get(0) instanceof org.python.types.Int) {
+            int k = (int) ((org.python.types.Int) Collections.max(this.value)).value;
+            int counter[] = new int[k + 1];
+
+            int val = 0;
+            for (int i = 0; i < this.value.size(); i++) {
+                val = (int) ((org.python.types.Int) (this.value.get(i))).value;
+                counter[val]++;
+            }
+
+            int ndx = 0;
+            for (int i = 0; i < counter.length; i++) {
+              while (0 < counter[i]) {
+                this.value.set(ndx++, org.python.types.Int.getInt(i));
+                counter[i]--;
+              }
+            }
+          }
+          else {
+              Collections.sort(this.value);
+          }
         } else {
-            // needs to be final in order to use inside the comparator
             final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
 
             Collections.sort(this.value, new Comparator<org.python.Object>() {
