@@ -4,9 +4,11 @@ import org.Python;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 public class List extends org.python.types.Object {
     public java.util.List<org.python.Object> value;
+    public java.util.LinkedList<org.python.Object> reversed_value;
 
     public java.lang.Object toJava() {
         return this.value;
@@ -29,11 +31,16 @@ public class List extends org.python.types.Object {
     public List() {
         super();
         this.value = new java.util.ArrayList<org.python.Object>();
+        this.reversed_value = new LinkedList<org.python.Object>();
     }
 
     public List(java.util.List<org.python.Object> list) {
         super();
         this.value = list;
+
+        LinkedList<org.python.Object> list_ = new LinkedList<org.python.Object>(list);
+        Collections.reverse(list_);
+        this.reversed_value = list_;
     }
 
     @org.python.Method(__doc__ = "list() -> new empty list"
@@ -45,21 +52,27 @@ public class List extends org.python.types.Object {
         } else if (args.length == 1) {
             if (args[0] instanceof org.python.types.List) {
                 this.value = new java.util.ArrayList<org.python.Object>(((org.python.types.List) args[0]).value);
+                this.reversed_value = new LinkedList<org.python.Object>(((org.python.types.List) args[0]).value);
             } else if (args[0] instanceof org.python.types.Set) {
                 this.value = new java.util.ArrayList<org.python.Object>(((org.python.types.Set) args[0]).value);
+                this.reversed_value = new LinkedList<org.python.Object>(((org.python.types.Set) args[0]).value);
             } else if (args[0] instanceof org.python.types.Tuple) {
                 this.value = new java.util.ArrayList<org.python.Object>(((org.python.types.Tuple) args[0]).value);
+                this.reversed_value = new LinkedList<org.python.Object>(((org.python.types.Tuple) args[0]).value);
             } else {
                 org.python.Object iterator = org.Python.iter(args[0]);
                 java.util.List<org.python.Object> generated = new java.util.ArrayList<org.python.Object>();
+                LinkedList generated_reversed = new LinkedList<org.python.Object>();
                 try {
                     while (true) {
                         org.python.Object next = iterator.__next__();
                         generated.add(next);
+                        generated_reversed.addFirst(next);
                     }
                 } catch (org.python.exceptions.StopIteration si) {
                 }
                 this.value = generated;
+                this.reversed_value = generated_reversed;
             }
         } else {
             throw new org.python.exceptions.TypeError("list() takes at most 1 argument (" + args.length + " given)");
@@ -80,12 +93,29 @@ public class List extends org.python.types.Object {
     public org.python.Object __iadd__(org.python.Object other) {
         if (other instanceof org.python.types.List) {
             this.value.addAll(((org.python.types.List) other).value);
+            this.reversed_value.addAll(0, ((org.python.types.List) other).reversed_value);
         } else if (other instanceof org.python.types.Tuple) {
             this.value.addAll(((org.python.types.Tuple) other).value);
+
+            java.util.List<org.python.Object> tmp = ((org.python.types.Tuple) other).value;
+            Collections.reverse(tmp);
+            this.reversed_value.addAll(0, tmp);
         } else if (other instanceof org.python.types.Set) {
             this.value.addAll(((org.python.types.Set) other).value);
+
+            java.util.List<org.python.Object> tmp = new java.util.ArrayList<org.python.Object>();
+            tmp.addAll(((org.python.types.Set) other).value);
+            Collections.reverse(tmp);
+
+            this.reversed_value.addAll(0, tmp);
         } else if (other instanceof org.python.types.FrozenSet) {
             this.value.addAll(((org.python.types.FrozenSet) other).value);
+
+            java.util.List<org.python.Object> tmp = new java.util.ArrayList<org.python.Object>();
+            tmp.addAll(((org.python.types.FrozenSet) other).value);
+            Collections.reverse(tmp);
+
+            this.reversed_value.addAll(0, tmp);
         } else if ((other instanceof org.python.types.Str) || (other instanceof org.python.types.Dict)
                 || (other instanceof org.python.types.Range) || (other instanceof org.python.types.Bytes)
                 || (other instanceof org.python.types.ByteArray)) {
@@ -103,7 +133,9 @@ public class List extends org.python.types.Object {
             }
             while (true) {
                 try {
-                    this.value.add(iter.__next__());
+                    org.python.Object tmp = iter.__next__();
+                    this.value.add(tmp);
+                    this.reversed_value.addFirst(tmp);
                 } catch (org.python.exceptions.StopIteration ae) {
                     break;
                 }
@@ -396,12 +428,14 @@ public class List extends org.python.types.Object {
                     throw new org.python.exceptions.IndexError("list assignment index out of range");
                 } else {
                     this.value.set(this.value.size() + idx, value);
+                    this.value.set(-idx-1, value);
                 }
             } else {
                 if (idx >= this.value.size()) {
                     throw new org.python.exceptions.IndexError("list assignment index out of range");
                 } else {
                     this.value.set(idx, value);
+                    this.reversed_value.set(this.reversed_value.size()-1-idx, value);
                 }
             }
         } catch (ClassCastException e) {
@@ -428,12 +462,14 @@ public class List extends org.python.types.Object {
                     throw new org.python.exceptions.IndexError("list index out of range");
                 } else {
                     this.value.remove(this.value.size() + idx);
+                    this.reversed_value.remove(-idx-1);
                 }
             } else {
                 if (idx >= this.value.size()) {
                     throw new org.python.exceptions.IndexError("list index out of range");
                 } else {
                     this.value.remove(idx);
+                    this.reversed_value.remove(this.reversed_value.size()-1-idx);
                 }
             }
         } catch (ClassCastException e) {
@@ -534,12 +570,14 @@ public class List extends org.python.types.Object {
     @org.python.Method(__doc__ = "L.append(object) -> None -- append object to end", args = { "item" })
     public org.python.Object append(org.python.Object item) {
         this.value.add(item);
+        this.reversed_value.addFirst(item);
         return org.python.types.NoneType.NONE;
     }
 
     @org.python.Method(__doc__ = "L.clear() -> None -- remove all items from L")
     public org.python.Object clear() {
         this.value.clear();
+        this.reversed_value.clear();
         return org.python.types.NoneType.NONE;
     }
 
@@ -560,19 +598,45 @@ public class List extends org.python.types.Object {
         return org.python.types.Int.getInt(count);
     }
 
+    private void add_rev(LinkedList<org.python.Object> l){
+        this.reversed_value.addAll(0, l);
+    }
     @org.python.Method(__doc__ = "L.extend(iterable) -> None -- extend list by appending elements from the iterable", args = {
             "other" })
     public org.python.Object extend(org.python.Object other) {
         if (other instanceof org.python.types.List) {
             this.value.addAll(((org.python.types.List) other).value);
+            this.reversed_value.addAll(0, ((org.python.types.List) other).reversed_value);
         } else if (other instanceof org.python.types.FrozenSet) {
             this.value.addAll(((org.python.types.FrozenSet) other).value);
+
+            java.util.List<org.python.Object> tmp = new java.util.ArrayList<org.python.Object>();
+            tmp.addAll(((org.python.types.FrozenSet) other).value);
+            Collections.reverse(tmp);
+
+            this.reversed_value.addAll(0, tmp);
         } else if (other instanceof org.python.types.Set) {
             this.value.addAll(((org.python.types.Set) other).value);
+
+            java.util.List<org.python.Object> tmp = new java.util.ArrayList<org.python.Object>();
+            tmp.addAll(((org.python.types.Set) other).value);
+            Collections.reverse(tmp);
+
+            this.reversed_value.addAll(0, tmp);
         } else if (other instanceof org.python.types.Tuple) {
             this.value.addAll(((org.python.types.Tuple) other).value);
+
+            java.util.List<org.python.Object> tmp = ((org.python.types.Tuple) other).value;
+            Collections.reverse(tmp);
+            this.reversed_value.addAll(0, tmp);
+
         } else if (other instanceof org.python.types.Dict) {
             this.value.addAll(((org.python.types.Dict) other).value.keySet());
+
+            java.util.List<org.python.Object> tmp = new java.util.ArrayList<org.python.Object>();
+            tmp.addAll(((org.python.types.Dict) other).value.keySet());
+            Collections.reverse(tmp);
+            this.reversed_value.addAll(0, tmp);
         } else if ((other instanceof org.python.types.Str) || (other instanceof org.python.types.Range)
                 || (other instanceof org.python.types.Bytes) || (other instanceof org.python.types.ByteArray)
                 || (other instanceof org.python.types.Iterator)) {
@@ -590,7 +654,9 @@ public class List extends org.python.types.Object {
             }
             while (true) {
                 try {
-                    this.value.add(iter.__next__());
+                    org.python.Object tmp = iter.__next__();
+                    this.value.add(tmp);
+                    this.reversed_value.addFirst(tmp);
                 } catch (org.python.exceptions.StopIteration si) {
                     break;
                 }
@@ -655,10 +721,13 @@ public class List extends org.python.types.Object {
         int posIndex = toPositiveIndex(((Long) index.toJava()).intValue());
         if (posIndex >= 0 && posIndex < this.value.size()) {
             this.value.add(posIndex, item);
+            this.reversed_value.add(this.reversed_value.size()-1-posIndex, item);
         } else if (posIndex >= this.value.size()) {
             this.value.add(item);
+            this.reversed_value.addFirst(item);
         } else if (posIndex < 0) {
             this.value.add(0, item);
+            this.reversed_value.addLast(item);
         }
         return org.python.types.NoneType.NONE;
     }
@@ -687,6 +756,7 @@ public class List extends org.python.types.Object {
         for (int i = 0; i < this.value.size(); i++) {
             if (((org.python.types.Bool) org.python.types.Object.__cmp_eq__(item, this.value.get(i))).value) {
                 this.value.remove(i);
+                this.reversed_value.remove(this.reversed_value.size()-1-i);
                 return org.python.types.NoneType.NONE;
             }
         }
@@ -695,7 +765,12 @@ public class List extends org.python.types.Object {
 
     @org.python.Method(__doc__ = "L.reverse() -> None -- reverse the elements of the L in place.")
     public org.python.Object reverse() {
-        Collections.reverse(this.value);
+        LinkedList<org.python.Object> old_value = new LinkedList<org.python.Object>(this.value);
+        java.util.List<org.python.Object> new_value = new java.util.ArrayList<org.python.Object>(this.reversed_value);
+
+        this.value = new_value;
+        this.reversed_value = old_value;
+
         return org.python.types.NoneType.NONE;
     }
 
@@ -721,6 +796,11 @@ public class List extends org.python.types.Object {
                 }
             });
         }
+
+        LinkedList<org.python.Object> tmp = new LinkedList<org.python.Object>(this.value);
+        Collections.reverse(tmp);
+        this.reversed_value = tmp;
+
         return org.python.types.NoneType.NONE;
     }
 
