@@ -1,7 +1,6 @@
 package org.python.workloadjava;
 import org.python.types.Int;
 import org.python.types.List;
-
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Workload {
