@@ -10,7 +10,8 @@ public class Workload {
     public List l_;
 
     public Workload() {
-        this.size = 1000000;
+        //size>500000 might crash program
+        this.size = 500000;
         this.l = new List();
         this.l_ = new List();
 
