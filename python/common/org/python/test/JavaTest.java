@@ -82,24 +82,18 @@ public class JavaTest {
     }
 
     @Test(expected = IndexError.class)
-    public void testSetItemOutOfBounds() {
+    public void testSetItemOutOfBounds() throws IndexError {
         List x = new List();
-        try {
-            x.__setitem__(Int.getInt(0), Int.getInt(5));
-        } catch (IndexError e) {
-        }
+        x.__setitem__(Int.getInt(0), Int.getInt(5));
 
     }
 
     @Test(expected = IndexError.class)
-    public void testSetItemOutOfBoundsNegative() {
+    public void testSetItemOutOfBoundsNegative() throws IndexError {
         // try to set item on negative index
         List x = new List();
         x.append(Int.getInt(1));
-        try {
-            x.__setitem__(Int.getInt(-2), Int.getInt(5));
-        } catch (IndexError e) {
-        }
+        x.__setitem__(Int.getInt(-2), Int.getInt(5));
 
     }
 
@@ -127,15 +121,12 @@ public class JavaTest {
     }
 
     @Test(expected = IndexError.class)
-    public void testDelItemNegOutOfRange() {
+    public void testDelItemNegOutOfRange() throws IndexError {
         List x = new List();
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(Int.getInt(-4));
-        } catch (IndexError e) {
-        }
+        x.__delitem__(Int.getInt(-4));
 
     }
 
@@ -154,27 +145,21 @@ public class JavaTest {
     }
 
     @Test(expected = IndexError.class)
-    public void testDelItemPosOutOfRange() {
+    public void testDelItemPosOutOfRange() throws IndexError {
         List x = new List();
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(Int.getInt(8));
-        } catch (IndexError e) {
-        }
+        x.__delitem__(Int.getInt(8));
     }
 
     @Test(expected = TypeError.class)
-    public void testDelItemIndexWrongType() {
+    public void testDelItemIndexWrongType() throws TypeError {
         List x = new List();
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(new Str("one"));
-        } catch (TypeError e) {
-        }
+        x.__delitem__(new Str("one"));
     }
 
     // -------------------------------------------------------
@@ -454,23 +439,7 @@ public class JavaTest {
     // --------- Adam and Erika ---------------------------------
 
     @Test
-    public void testSort() {
-
-        List x = new List();
-
-        x.append(Int.getInt(3));
-        x.append(Int.getInt(2));
-        x.append(Int.getInt(1));
-        x.sort(null, null);
-
-        List x2 = new List();
-
-        x2.append(Int.getInt(1));
-        x2.append(Int.getInt(2));
-        x2.append(Int.getInt(3));
-
-        assertEquals(x, x2);
-
+    public void testBubbleSort() {
         List x3 = new List();
         x3.append(Int.getInt(1));
         x3.append(Int.getInt(5));
@@ -491,6 +460,25 @@ public class JavaTest {
         x4.append(Int.getInt(12));
 
         assertEquals(x3, x4);
+    }
+
+    @Test
+    public void testSort() {
+
+        List x = new List();
+
+        x.append(Int.getInt(3));
+        x.append(Int.getInt(2));
+        x.append(Int.getInt(1));
+        x.sort(null, null);
+
+        List x2 = new List();
+
+        x2.append(Int.getInt(1));
+        x2.append(Int.getInt(2));
+        x2.append(Int.getInt(3));
+
+        assertEquals(x, x2);
 
         List x5 = new List();
         x5.append(Int.getInt(1));

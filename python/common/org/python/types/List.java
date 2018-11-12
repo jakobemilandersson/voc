@@ -730,31 +730,46 @@ public class List extends org.python.types.Object {
     }
 
     public org.python.Object bubbleSort(final org.python.Object key, org.python.Object reverse) {
-        if (key == null && reverse == null) {
+	
+        if (this.value.get(0) instanceof org.python.types.Int) {
+            if (key == null && reverse == null) {
 
-            int n = this.value.size();
+                int n = this.value.size();
 
-            for (int i = 0; i < n-1; i++)
-                for (int j = 0; j < n-i-1; j++){
-                     long val = (long)this.value.get(j).toJava();
-                     long val1 = (long) this.value.get(j+1).toJava();
-                  //  int val1 = (int) arr.__getitem__(Int.getInt(j)).toJava();
-                   // int val2 = (int) arr.__getitem__(Int.getInt(j+1)).toJava();
-                 //   System.out.println(val + "first val");
-                 //   System.out.println(val1 + "second val");
-                    if (val < val1);
-                    {
-                        // swap temp and arr[i]
-                        org.python.Object temp = this.value.get(j);
-                        org.python.Object setVal = this.value.get(j+1);
-                        this.value.set(j, setVal);
-                        this.value.set(j+1,temp);
+                for (int i = 0; i < n-1; i++)
+                    for (int j = 0; j < n-i-1; j++){
+                        long first = (long) this.value.get(j).toJava();
+                        long second = (long) this.value.get(j+1).toJava();
+
+                        if (first > second) {
+                            org.python.Object temp = this.value.get(j);
+                            org.python.Object setVal = this.value.get(j+1);
+                            this.value.set(j, setVal);
+                            this.value.set(j+1,temp);
+                        }
                     }
-                }
+            } else {
+                // needs to be final in order to use inside the comparator
+                final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
+
+                Collections.sort(this.value, new Comparator<org.python.Object>() {
+                    @Override
+                    public int compare(org.python.Object o1, org.python.Object o2) {
+                        org.python.Object val1 = o1;
+                        org.python.Object val2 = o2;
+                        if (key != null) {
+                            val1 = ((org.python.types.Function) key).invoke(o1, null, null);
+                            val2 = ((org.python.types.Function) key).invoke(o2, null, null);
+                        }
+                        return shouldReverse ? val2.compareTo(val1) : val1.compareTo(val2);
+                    }
+                });
+            }
         } else {
-            // needs to be final in order to use inside the comparator
-           sort(key, reverse);
+            Collections.sort(this.value);
         }
+
+
         return org.python.types.NoneType.NONE;
     }
 }
