@@ -62,7 +62,7 @@ public class List extends org.python.types.Object {
                 this.value = generated;
             }
         } else {
-            throw new org.python.exceptions.TypeError("list() takes at most 1 argument (" + args.length + " given)");
+            throw new org.python.exceptions.TypeError("list expected at most 1 arguments, got " + args.length );
         }
     }
 
