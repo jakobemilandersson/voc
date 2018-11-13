@@ -709,20 +709,23 @@ public class List extends org.python.types.Object {
 
                 int n = this.value.size();
 
-                for (int i = 0; i < n-1; i++)
-                    for (int j = 0; j < n-i-1; j++){
+                for (int i = 0; i < n - 1; i++) {
+                    for (int j = 0; j < n - i - 1; j++) {
                         long first = (long) this.value.get(j).toJava();
-                        long second = (long) this.value.get(j+1).toJava();
+                        long second = (long) this.value.get(j + 1).toJava();
 
                         if (first > second) {
                             org.python.Object temp = this.value.get(j);
-                            org.python.Object setVal = this.value.get(j+1);
+                            org.python.Object setVal = this.value.get(j + 1);
                             this.value.set(j, setVal);
-                            this.value.set(j+1,temp);
+                            this.value.set(j + 1, temp);
                         }
                     }
+                }
             }
-        } else Collections.sort(this.value);
+        } else {
+            Collections.sort(this.value);
+        }
 
         final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
 
