@@ -553,12 +553,12 @@ public class JavaTest {
         x13.append(new Str("theta"));
         x13.append(new Str("alpha"));
         x13.sort(null, Bool.getBool(true));
-        System.out.println(x13);
+
         List x14 = new List();
         x14.append(new Str("theta"));
         x14.append(new Str("beta"));
         x14.append(new Str("alpha"));
-        System.out.println(x14);
+
         assertEquals(x13, x14);
     }
 }

@@ -27,8 +27,7 @@ public class re extends org.python.types.Module {
 			builder.append(ch);
 		}
 
-		//return builder.toString();
-		return "bblaala";
+		return builder.toString();
     }
 
 }

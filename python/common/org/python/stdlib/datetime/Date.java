@@ -79,10 +79,11 @@ public class Date extends org.python.types.Object {
         Str retStr = new Str();
         try {
             String month= (new DateFormatSymbols().getMonths()[(int)this.month.value-1]).substring(0,3);
+	    String monthAfter = month.substring(0, 1).toUpperCase() + month.substring(1);
             String dateString = String.format("%d-%d-%d", (int)this.year.value, (int)this.month.value, (int)this.day.value);
             java.util.Date date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
             String dayOfWeek = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date)).substring(0,3);
-            retStr =  new Str(dayOfWeek + " " + month + " " +this.day.toJava()+ " " + "00:00:00" + " " + this.year.toJava());
+            retStr =  new Str(dayOfWeek + " " + monthAfter + " " +this.day.toJava()+ " " + "00:00:00" + " " + this.year.toJava());
         } catch (ParseException e) {
             e.printStackTrace();
         }
