@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.python.exceptions.IndexError;
 import org.python.exceptions.TypeError;
 import org.python.types.*;
+import org.python.types.Float;
 import org.python.types.Object;
 
 import static org.junit.Assert.*;
@@ -486,11 +487,14 @@ public class JavaTest {
         x5.append(Int.getInt(1));
         x5.append(Int.getInt(2));
         x5.append(Int.getInt(3));
-        x5.append(Int.getInt(4));
         x5.append(Int.getInt(5));
+        x5.append(Int.getInt(4));
         x5.append(Int.getInt(9));
         x5.append(Int.getInt(12));
         x5.sort(null, Bool.getBool(true));
+
+
+
         List x6 = new List();
         x6.append(Int.getInt(12));
         x6.append(Int.getInt(9));
@@ -515,5 +519,46 @@ public class JavaTest {
         x8.append(new Str("K"));
 
         assertEquals(x7, x8);
+
+        List x9 = new List();
+        x9.append(new Float(3.5f));
+        x9.append(new Float(2.5f));
+        x9.append(new Float(1.5f));
+        x9.append(new Float(0.5f));
+        x9.sort(null, null);
+
+        List x10 = new List();
+        x10.append(new Float(0.5f));
+        x10.append(new Float(1.5f));
+        x10.append(new Float(2.5f));
+        x10.append(new Float(3.5f));
+
+        assertEquals(x9, x10);
+
+        List x11 = new List();
+        x11.append(new Str("theta"));
+        x11.append(new Str("beta"));
+        x11.append(new Str("alpha"));
+        x11.sort(null, null);
+
+        List x12 = new List();
+        x12.append(new Str("alpha"));
+        x12.append(new Str("beta"));
+        x12.append(new Str("theta"));
+
+        assertEquals(x11, x12);
+
+        List x13 = new List();
+        x13.append(new Str("beta"));
+        x13.append(new Str("theta"));
+        x13.append(new Str("alpha"));
+        x13.sort(null, Bool.getBool(true));
+        System.out.println(x13);
+        List x14 = new List();
+        x14.append(new Str("theta"));
+        x14.append(new Str("beta"));
+        x14.append(new Str("alpha"));
+        System.out.println(x14);
+        assertEquals(x13, x14);
     }
 }
