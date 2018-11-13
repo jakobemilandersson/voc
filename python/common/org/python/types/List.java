@@ -702,36 +702,9 @@ public class List extends org.python.types.Object {
     @org.python.Method(__doc__ = "L.sort(key=None, reverse=False) -> None -- stable sort *IN PLACE*", args = {}, default_args = {
             "key", "reverse" })
     public org.python.Object sort(final org.python.Object key, org.python.Object reverse) {
-        if (key == null && reverse == null) {
-            Collections.sort(this.value);
-        } else {
-            // needs to be final in order to use inside the comparator
-            final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
+        boolean isInt = this.value.get(0) instanceof org.python.types.Int;
 
-            Collections.sort(this.value, new Comparator<org.python.Object>() {
-                @Override
-                public int compare(org.python.Object o1, org.python.Object o2) {
-                    org.python.Object val1 = o1;
-                    org.python.Object val2 = o2;
-                    if (key != null) {
-                        val1 = ((org.python.types.Function) key).invoke(o1, null, null);
-                        val2 = ((org.python.types.Function) key).invoke(o2, null, null);
-                    }
-                    return shouldReverse ? val2.compareTo(val1) : val1.compareTo(val2);
-                }
-            });
-        }
-        return org.python.types.NoneType.NONE;
-    }
-
-    @org.python.Method(__doc__ = "")
-    public org.python.Object __round__(org.python.Object ndigits) {
-        throw new org.python.exceptions.TypeError("type list doesn't define __round__ method");
-    }
-
-    public org.python.Object bubbleSort(final org.python.Object key, org.python.Object reverse) {
-	
-        if (this.value.get(0) instanceof org.python.types.Int) {
+        if (isInt) {
             if (key == null && reverse == null) {
 
                 int n = this.value.size();
@@ -765,10 +738,7 @@ public class List extends org.python.types.Object {
                     }
                 });
             }
-        } else {
-            Collections.sort(this.value);
-        }
-
+        } else Collections.sort(this.value);
 
         return org.python.types.NoneType.NONE;
     }
