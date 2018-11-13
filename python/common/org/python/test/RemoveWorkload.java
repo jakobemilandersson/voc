@@ -1,8 +1,10 @@
 package org.python.test;
-import org.python.types.*;
-import java.util.Scanner;
+import org.python.types.Int;
+
 
 public class RemoveWorkload {
+
+// Method for timing how long it takes to append elements to a list and then delete them.
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
