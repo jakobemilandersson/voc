@@ -1,13 +1,15 @@
 package org.python.test;
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.python.exceptions.IndexError;
 import org.python.exceptions.TypeError;
-import org.python.types.*;
+import org.python.types.List;
+import org.python.types.Bool;
+import org.python.types.Int;
+import org.python.types.Str;
+import org.python.types.Range;
+import org.python.types.Float;
 import org.python.types.Object;
-
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class JavaTest {
@@ -82,24 +84,18 @@ public class JavaTest {
     }
 
     @Test(expected = IndexError.class)
-    public void testSetItemOutOfBounds() {
+    public void testSetItemOutOfBounds() throws IndexError {
         List x = new List();
-        try {
-            x.__setitem__(Int.getInt(0), Int.getInt(5));
-        } catch (IndexError e) {
-        }
+        x.__setitem__(Int.getInt(0), Int.getInt(5));
 
     }
 
     @Test(expected = IndexError.class)
-    public void testSetItemOutOfBoundsNegative() {
+    public void testSetItemOutOfBoundsNegative() throws IndexError {
         // try to set item on negative index
         List x = new List();
         x.append(Int.getInt(1));
-        try {
-            x.__setitem__(Int.getInt(-2), Int.getInt(5));
-        } catch (IndexError e) {
-        }
+        x.__setitem__(Int.getInt(-2), Int.getInt(5));
 
     }
 
@@ -127,15 +123,12 @@ public class JavaTest {
     }
 
     @Test(expected = IndexError.class)
-    public void testDelItemNegOutOfRange() {
+    public void testDelItemNegOutOfRange() throws IndexError {
         List x = new List();
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(Int.getInt(-4));
-        } catch (IndexError e) {
-        }
+        x.__delitem__(Int.getInt(-4));
 
     }
 
@@ -154,33 +147,23 @@ public class JavaTest {
     }
 
     @Test(expected = IndexError.class)
-    public void testDelItemPosOutOfRange() {
+    public void testDelItemPosOutOfRange() throws IndexError {
         List x = new List();
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(Int.getInt(8));
-        } catch (IndexError e) {
-        }
+        x.__delitem__(Int.getInt(8));
     }
 
     @Test(expected = TypeError.class)
-    public void testDelItemIndexWrongType() {
+    public void testDelItemIndexWrongType() throws TypeError {
         List x = new List();
         x.append(Int.getInt((1)));
         x.append(Int.getInt((2)));
         x.append(Int.getInt((3)));
-        try {
-            x.__delitem__(new Str("one"));
-        } catch (TypeError e) {
-        }
+        x.__delitem__(new Str("one"));
     }
 
-    // -------------------------------------------------------
-    
-
-    
     // --------- Adam, Tor and Jakob ---------------------------
     @Test
     public void testListContains() {
@@ -337,119 +320,8 @@ public class JavaTest {
 
         Assert.assertEquals(original, validation);
     }
-	/*
-	@Test
-    public void testListPopNoArg() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop();
-
-        List validation = new List();
-        validation.append(Int.getInt(1));
-        validation.append(Int.getInt(2));
-
-        assertEquals(original, validation);
-    }
-
-    @Test
-    public void testListPopPosArg() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(0);
-
-        List validation = new List();
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-
-        assertEquals(original, validation);
-    }
-
-    @Test 
-    public void testListPopNegArg() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(-2);
-
-        List validation = new List();
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-
-        assertEquals(original, validation);
-    }
-
-    @Test(expected = IndexError.class)
-    public void testListPopExceptionEmpty() {
-        List original = new List();
-        original.pop();
-    }
-
-    @Test(expected = IndexError.class)
-    public void testListPopExceptionIndOver() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(3);
-    }
-
-    @Test(expected = IndexError.class)
-    public void testListPopExceptionIndUnder() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.pop(-4);
-    }
-
-    @Test
-    public void testListInsertInt() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.insert(0, Int.getInt(4));
-
-        List validation = new List();
-        validation.append(Int.getInt(4));
-        validation.append(Int.getInt(1));
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-
-        assertEquals(original, validation);
-    }
-
-    @Test
-    public void testListInsertStr() {
-        List original = new List();
-        original.append(Int.getInt(1));
-        original.append(Int.getInt(2));
-        original.append(Int.getInt(3));
-        original.insert(0, new Str("hello"));
-
-        List validation = new List();
-        validation.append(new Str("hello"));
-        validation.append(Int.getInt(1));
-        validation.append(Int.getInt(2));
-        validation.append(Int.getInt(3));
-
-        assertEquals(original, validation);
-    }
-*/
-    // -----------------------------------------------------------
-
-
-
 
     // --------- Lucas and Henrik -------------------------------
-    // ----------------------------------------------------------
-
-
 
     // --------- Adam and Erika ---------------------------------
 
@@ -479,7 +351,7 @@ public class JavaTest {
         x3.append(Int.getInt(4));
         x3.append(Int.getInt(9));
         x3.append(Int.getInt(12));
-        x3.bubbleSort(null, null);
+        x3.sort(null, null);
 
         List x4 = new List();
         x4.append(Int.getInt(1));
@@ -496,11 +368,14 @@ public class JavaTest {
         x5.append(Int.getInt(1));
         x5.append(Int.getInt(2));
         x5.append(Int.getInt(3));
-        x5.append(Int.getInt(4));
         x5.append(Int.getInt(5));
+        x5.append(Int.getInt(4));
         x5.append(Int.getInt(9));
         x5.append(Int.getInt(12));
-        x5.bubbleSort(null, Bool.getBool(true));
+        x5.sort(null, Bool.getBool(true));
+
+
+
         List x6 = new List();
         x6.append(Int.getInt(12));
         x6.append(Int.getInt(9));
@@ -525,5 +400,46 @@ public class JavaTest {
         x8.append(new Str("K"));
 
         assertEquals(x7, x8);
+
+        List x9 = new List();
+        x9.append(new Float(3.5f));
+        x9.append(new Float(2.5f));
+        x9.append(new Float(1.5f));
+        x9.append(new Float(0.5f));
+        x9.sort(null, null);
+
+        List x10 = new List();
+        x10.append(new Float(0.5f));
+        x10.append(new Float(1.5f));
+        x10.append(new Float(2.5f));
+        x10.append(new Float(3.5f));
+
+        assertEquals(x9, x10);
+
+        List x11 = new List();
+        x11.append(new Str("theta"));
+        x11.append(new Str("beta"));
+        x11.append(new Str("alpha"));
+        x11.sort(null, null);
+
+        List x12 = new List();
+        x12.append(new Str("alpha"));
+        x12.append(new Str("beta"));
+        x12.append(new Str("theta"));
+
+        assertEquals(x11, x12);
+
+        List x13 = new List();
+        x13.append(new Str("beta"));
+        x13.append(new Str("theta"));
+        x13.append(new Str("alpha"));
+        x13.sort(null, Bool.getBool(true));
+
+        List x14 = new List();
+        x14.append(new Str("theta"));
+        x14.append(new Str("beta"));
+        x14.append(new Str("alpha"));
+
+        assertEquals(x13, x14);
     }
 }

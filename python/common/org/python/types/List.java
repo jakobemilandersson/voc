@@ -62,7 +62,7 @@ public class List extends org.python.types.Object {
                 this.value = generated;
             }
         } else {
-            throw new org.python.exceptions.TypeError("list() takes at most 1 argument (" + args.length + " given)");
+            throw new org.python.exceptions.TypeError("list expected at most 1 arguments, got " + args.length );
         }
     }
 
@@ -699,75 +699,49 @@ public class List extends org.python.types.Object {
         return org.python.types.NoneType.NONE;
     }
 
-    @org.python.Method(__doc__ = "L.sort(key=None, reverse=False) -> None -- stable sort *IN PLACE*", args = {}, default_args = {
+    @org.python.Method(__doc__ = "L.sort(key=None, reverse=False) -> None -- stable bubble sort", args = {}, default_args = {
             "key", "reverse" })
     public org.python.Object sort(final org.python.Object key, org.python.Object reverse) {
-        if (key == null && reverse == null) {
+        boolean isInt = this.value.get(0) instanceof org.python.types.Int;
+
+        if (isInt) {
+            if (key == null && reverse == null) {
+
+                int n = this.value.size();
+
+                for (int i = 0; i < n - 1; i++) {
+                    for (int j = 0; j < n - i - 1; j++) {
+                        long first = (long) this.value.get(j).toJava();
+                        long second = (long) this.value.get(j + 1).toJava();
+
+                        if (first > second) {
+                            org.python.Object temp = this.value.get(j);
+                            org.python.Object setVal = this.value.get(j + 1);
+                            this.value.set(j, setVal);
+                            this.value.set(j + 1, temp);
+                        }
+                    }
+                }
+            }
+        } else {
             Collections.sort(this.value);
-        } else {
-            // needs to be final in order to use inside the comparator
-            final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
-
-            Collections.sort(this.value, new Comparator<org.python.Object>() {
-                @Override
-                public int compare(org.python.Object o1, org.python.Object o2) {
-                    org.python.Object val1 = o1;
-                    org.python.Object val2 = o2;
-                    if (key != null) {
-                        val1 = ((org.python.types.Function) key).invoke(o1, null, null);
-                        val2 = ((org.python.types.Function) key).invoke(o2, null, null);
-                    }
-                    return shouldReverse ? val2.compareTo(val1) : val1.compareTo(val2);
-                }
-            });
         }
-        return org.python.types.NoneType.NONE;
-    }
 
-    @org.python.Method(__doc__ = "")
-    public org.python.Object __round__(org.python.Object ndigits) {
-        throw new org.python.exceptions.TypeError("type list doesn't define __round__ method");
-    }
+        final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
 
-    public org.python.Object bubbleSort(final org.python.Object key, org.python.Object reverse) {
-        if (key == null && reverse == null) {
-
-            int n = this.value.size();
-
-            for (int i = 0; i < n-1; i++)
-                for (int j = 0; j < n-i-1; j++){
-                     long val = (long)this.value.get(j).toJava();
-                     long val1 = (long) this.value.get(j+1).toJava();
-                  //  int val1 = (int) arr.__getitem__(Int.getInt(j)).toJava();
-                   // int val2 = (int) arr.__getitem__(Int.getInt(j+1)).toJava();
-                 //   System.out.println(val + "first val");
-                 //   System.out.println(val1 + "second val");
-                    if (val < val1);
-                    {
-                        // swap temp and arr[i]
-                        org.python.Object temp = this.value.get(j);
-                        org.python.Object setVal = this.value.get(j+1);
-                        this.value.set(j, setVal);
-                        this.value.set(j+1,temp);
-                    }
+        Collections.sort(this.value, new Comparator<org.python.Object>() {
+            @Override
+            public int compare(org.python.Object o1, org.python.Object o2) {
+                org.python.Object val1 = o1;
+                org.python.Object val2 = o2;
+                if (key != null) {
+                    val1 = ((org.python.types.Function) key).invoke(o1, null, null);
+                    val2 = ((org.python.types.Function) key).invoke(o2, null, null);
                 }
-        } else {
-            // needs to be final in order to use inside the comparator
-            final boolean shouldReverse = reverse == null ? false : ((org.python.types.Bool) reverse.__bool__()).value;
+                return shouldReverse ? val2.compareTo(val1) : val1.compareTo(val2);
+            }
+        });
 
-            Collections.sort(this.value, new Comparator<org.python.Object>() {
-                @Override
-                public int compare(org.python.Object o1, org.python.Object o2) {
-                    org.python.Object val1 = o1;
-                    org.python.Object val2 = o2;
-                    if (key != null) {
-                        val1 = ((org.python.types.Function) key).invoke(o1, null, null);
-                        val2 = ((org.python.types.Function) key).invoke(o2, null, null);
-                    }
-                    return shouldReverse ? val2.compareTo(val1) : val1.compareTo(val2);
-                }
-            });
-        }
         return org.python.types.NoneType.NONE;
     }
 }
